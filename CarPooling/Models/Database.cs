@@ -11,7 +11,8 @@ namespace CarPooling.Models
     public class Database
     {
         public static SqlConnection Connection = new SqlConnection(ConfigurationManager.ConnectionStrings["connectionDB"].ConnectionString);
-        public static DatabaseObject GetObject<Type>(SqlCommand cmd) where Type : DatabaseObject, new()
+        //Metodo da usare se la query restituisce un solo record
+        public static Type GetObject<Type>(SqlCommand cmd) where Type : DatabaseObject, new()
         {
             cmd.Connection = Connection;
 
@@ -37,11 +38,12 @@ namespace CarPooling.Models
             }
             return obj;
         }
-        public static List<DatabaseObject> GetObjectList<Type>(SqlCommand cmd) where Type : DatabaseObject, new()
+        //Metodo da usare se la query restituisce più record
+        public static List<Type> GetObjectList<Type>(SqlCommand cmd) where Type : DatabaseObject, new()
         {
             cmd.Connection = Connection;
 
-            List<DatabaseObject> result = new List<DatabaseObject>();
+            List<Type> result = new List<Type>();
 
             SqlDataReader reader = null;
             try
@@ -68,6 +70,7 @@ namespace CarPooling.Models
             }
             return result;
         }
+        //Metodo da utilizzare per INSERT e UPDATE
         public static void ExecuteNonQuery(SqlCommand cmd)
         {
             try

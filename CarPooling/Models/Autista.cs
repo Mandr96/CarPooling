@@ -14,16 +14,17 @@ namespace CarPooling.Models
         public string Cognome { get; set; }
         public void BuildFromReader(SqlDataReader reader)
         {
-            
+            //EmailAutista = reader["emailAutista"].ToString();
+            //...
         }
 
-        public static List<DatabaseObject> SelectAllAutisti()
+        public static List<Autista> SelectAllAutisti()
         {
             SqlCommand cmd = new SqlCommand("SELECT * FROM Autista;");
             return Database.GetObjectList<Autista>(cmd);
         }
 
-        public static DatabaseObject SelectById(string email)
+        public static Autista SelectById(string email)
         {
             SqlCommand cmd = new SqlCommand("SELECT * FROM Autista WHERE emailAutista = @email");
             cmd.Parameters.AddWithValue("email", email);
