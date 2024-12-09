@@ -29,5 +29,9 @@ namespace CarPooling.Models
             cmd.Parameters.AddWithValue("email", email);
             return Database.GetObject<Autista>(cmd);
         }
+        public void TestPushGitHub()
+        {
+            //contenuto
+        }
     }
 }
