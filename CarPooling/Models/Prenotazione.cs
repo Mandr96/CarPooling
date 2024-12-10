@@ -15,7 +15,10 @@ namespace CarPooling.Models
 
         public void BuildFromReader(SqlDataReader reader)
         {
-            
+            IdPrenotazione = int.Parse(reader["IdPrenotazione"].ToString());
+            Emailpasseggero = reader["fk_emailPasseggero"].ToString();
+            IdViaggio = int.Parse(reader["fk_IdViaggio"].ToString());
+            DataOra = (DateTime)reader["DataOra"];
         }
     }
 }
