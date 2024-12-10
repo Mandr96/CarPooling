@@ -361,6 +361,3 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-/CarPooling/Web.config
-/CarPooling/Web.Debug.config
-/CarPooling/Web.Release.config

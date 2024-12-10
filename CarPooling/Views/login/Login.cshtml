@@ -1,0 +1,63 @@
+@model CarPooling.Models.Utente
+
+
+<style>
+
+    .form-container {
+        min-width: 600px; /* Larghezza massima del form */
+        margin: 0 auto; /* Centrare il form */
+        padding: 30px;
+        background-color: lightgray; /* Sfondo chiaro */
+        border-radius: 10px; /* Bordo arrotondato */
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Ombreggiatura */
+    }
+</style>
+
+
+
+
+@if (TempData["LoginError"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["LoginError"]
+    </div>
+}
+
+<h2 class="text-center" style="margin-bottom: 10px;">Login Page</h2>
+
+<div class="d-flex justify-content-center m-4">
+    @using (Html.BeginForm())
+    {
+        <div class="form-container">
+
+
+            <div class="d-flex justify-content-center">
+                <div class="form-group mb-3">
+                    <label class="form-label">Email</label>
+                    @Html.TextBoxFor(x => x.Email, new { @class = "form-control", @id = "Username" })
+                    @Html.ValidationMessageFor(x => x.Email, null, new {@class = "text-danger"})
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-center">
+                <div class="form-group mb-3">
+                    <label  class="form-label">Password</label>
+                    @Html.TextBoxFor(x => x.Password, new { @class = "form-control", @id = "Password", @type = "password" })
+                    @Html.ValidationMessageFor(x => x.Password, null,  new {@class = "text-danger"})
+                </div>
+            </div>
+
+            <div class="text-center">
+                <input type="submit" value="Login" class="btn btn-success w-100" />
+            </div>
+
+            <div class="">
+                Sei nuovo? Registrati come 
+                @Html.ActionLink("Passegero", "RegistrazionePasseggero", "Passeggero") o 
+                @Html.ActionLink("Autista", "RegistrazioneAutista", "Autista")
+            </div>
+        </div>
+    }
+</div>
+
+

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Security;
+using System.Data.SqlClient;
+using System.Web.Helpers;
 
 namespace CarPooling.Models
 {
@@ -34,11 +36,18 @@ namespace CarPooling.Models
         {
             throw new NotImplementedException();
         }
-
-        //TODO implementare metodo
-        public override string[] GetRolesForUser(string username)
+        public override string[] GetRolesForUser(string email)
         {
-            throw new NotImplementedException();
+            List<string> ruoli = new List<string>();
+
+            SqlCommand cmd = new SqlCommand("SELECT * FROM Utente WHERE email = @email");
+            cmd.Parameters.AddWithValue("email", email);
+            List<Utente> utenti = Database.GetObjectList<Utente>(cmd);
+            foreach(Utente u in utenti)
+            {
+                ruoli.Add(u.Ruolo);
+            }
+            return ruoli.ToArray();
         }
 
         public override string[] GetUsersInRole(string roleName)
