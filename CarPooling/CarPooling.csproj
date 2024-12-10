@@ -120,9 +120,14 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AutistaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+
+    <Compile Include="Controllers\PasseggeroController.cs" />
+
     <Compile Include="Controllers\ViaggiController.cs" />
+
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -186,11 +191,16 @@
     <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+
+    <Content Include="Views\Login\Login.cshtml" />
+    <Content Include="Views\Autista\RegistrazioneAutista.cshtml" />
+    <Content Include="Views\Passeggero\RegistrazionePasseggero.cshtml" />
+
     <Content Include="Views\Viaggi\TestViaggi.cshtml" />
+
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Login\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
