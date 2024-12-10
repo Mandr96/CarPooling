@@ -55,7 +55,7 @@ namespace CarPooling.Models
         }
         public static List<Viaggio> SelectByAutista(string emailAutista)
         {
-            SqlCommand cmd = new SqlCommand("SELECT * FROM Viaggio WHERE emailAutista = @email;");
+            SqlCommand cmd = new SqlCommand("SELECT * FROM Viaggio WHERE fk_EmailAutista = @email;");
             cmd.Parameters.AddWithValue("email", emailAutista);
             return Database.GetObjectList<Viaggio>(cmd);
         }
