@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Configuration;
 using System.Data.SqlClient;
 using System.Data.SqlTypes;
+using System.Drawing;
 using System.Linq;
 using System.Web;
 
@@ -10,14 +11,14 @@ namespace CarPooling.Models
 {
     public class Database
     {
-        public static SqlConnection Connection = new SqlConnection(ConfigurationManager.ConnectionStrings["connectionDB"].ConnectionString);
+        public static SqlConnection Connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DBconnection"].ConnectionString);
         //Metodo da usare se la query restituisce un solo record
         public static Type GetObject<Type>(SqlCommand cmd) where Type : DatabaseObject, new()
         {
             cmd.Connection = Connection;
 
             Type obj = new Type();
-            SqlDataReader reader = null;
+            SqlDataReader reader;
             try
             {
                 if (Connection.State == System.Data.ConnectionState.Closed)
@@ -30,7 +31,7 @@ namespace CarPooling.Models
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                HttpContext.Current.Response.Write($@"<span style=""color:red"">{ex.Message}</span>");
             }
             finally
             {
@@ -45,7 +46,7 @@ namespace CarPooling.Models
 
             List<Type> result = new List<Type>();
 
-            SqlDataReader reader = null;
+            SqlDataReader reader;
             try
             {
                 if (Connection.State == System.Data.ConnectionState.Closed)
@@ -62,7 +63,7 @@ namespace CarPooling.Models
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                HttpContext.Current.Response.Write($@"<span style=""color:red"">{ex.Message}</span>");
             }
             finally
             {
@@ -85,7 +86,7 @@ namespace CarPooling.Models
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                HttpContext.Current.Response.Write($@"<span style=""color:red"">{ex.Message}</span>");
             }
             finally
             {
