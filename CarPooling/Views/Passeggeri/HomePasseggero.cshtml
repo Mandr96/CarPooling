@@ -1,0 +1,63 @@
+﻿@model CarPooling.Models.Passeggero
+
+@{
+    ViewBag.Title = "HomePasseggero";
+}
+
+<h2>Home Passeggero</h2>
+
+<div>
+    <h4>Dati del tuo account</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.EmailPasseggero)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmailPasseggero)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cognome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cognome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CartaIdentita)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CartaIdentita)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Telefono)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Telefono)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Modifica dati (non implementato)", "Edit", new { /* id = Model.PrimaryKey */ }) |
+</p>
+
+
+<div>
+    @Html.Action("PartialRicercaViaggi")
+</div>
+

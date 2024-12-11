@@ -50,5 +50,13 @@ namespace CarPooling.Models
             cmd.Parameters.AddWithValue("Telefono", p.Cognome);
             Database.ExecuteNonQuery(cmd);
         }
+
+        public static List<Viaggio> GetViaggiByPasseggero(string emailPasseggero)
+        {
+            SqlCommand cmd = new SqlCommand("SELECT * FROM Passeggero pa JOIN Prenotazione pr ON pa.EmailPasseggero=pr.fk_EmailPasseggero " +
+                "JOIN Viaggio v ON pr.fk_IdViaggio=v.IdViaggio WHERE fk_EmailPasseggero = @email;");
+            cmd.Parameters.AddWithValue("email", emailPasseggero);
+            return Database.GetObjectList<Viaggio>(cmd);
+        }
     }
 }
