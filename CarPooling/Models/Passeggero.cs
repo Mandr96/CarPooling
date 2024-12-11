@@ -43,27 +43,12 @@ namespace CarPooling.Models
         {
             string query = "INSERT INTO Passeggero VALUES (@EmailPasseggero, @Nome, @Cognome, @CartaIdentita, @Telefono);";
             SqlCommand cmd = new SqlCommand(query);
-            cmd.Parameters.AddWithValue("EmailPasseggero", p.EmailAutista);
+            cmd.Parameters.AddWithValue("EmailPasseggero", p.EmailPasseggero);
             cmd.Parameters.AddWithValue("Nome", p.Nome);
             cmd.Parameters.AddWithValue("Cognome", p.Cognome);
             cmd.Parameters.AddWithValue("CartaIdentita", p.Cognome);
             cmd.Parameters.AddWithValue("Telefono", p.Cognome);
-            
-
-            try
-            {
-                ExecuteNonQuery(cmd);
-
-            }
-            catch (Exception ex)
-            {
-                   ViewBag.ErroreInsert = "Errore inserimento Passeggero" +ex.Message;
-            }
-            finally
-            {
-                conn.Close();
-            }
+            Database.ExecuteNonQuery(cmd);
         }
-
     }
 }

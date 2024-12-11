@@ -26,9 +26,9 @@ namespace CarPooling.Models
             EmailAutista = reader["emailAutista"].ToString();
             Nome = reader["Nome"].ToString();
             Cognome = reader["Cognome"].ToString();
-            DataNascita = (DateTime)(reader["DataNascita"].ToString());
+            DataNascita = (DateTime)reader["DataNascita"];
             NumPatente = int.Parse(reader["NumPatente"].ToString());
-            scadenzaPatente = (DateTime)(reader["ScadenzaPatente"].ToString());
+            scadenzaPatente = (DateTime)reader["ScadenzaPatente"];
             Auto = reader["Auto"].ToString();
             Tel = reader["Telefono"].ToString();
             PhotoFileName = reader["PhotoFileName"].ToString();
@@ -60,22 +60,7 @@ namespace CarPooling.Models
             cmd.Parameters.AddWithValue("Auto", autista.Auto);
             cmd.Parameters.AddWithValue("Telefono", autista.Tel);
             cmd.Parameters.AddWithValue("PhotoFileName", autista.PhotoFileName);
-
-            try
-            {
-                ExecuteNonQuery(cmd);
-                    
-            }
-            catch(Exception ex)
-            {
-                ViewBag.ErroreInsert = "Errore inserimento Passeggero" + ex.Message;
-            }
-            finally
-            {
-                conn.Close();
-            }
+            Database.ExecuteNonQuery(cmd); 
         }   
-
-
     }
 }
