@@ -135,6 +135,7 @@
     <Compile Include="Controllers\AutistaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\PasseggeriController.cs" />
     <Compile Include="Controllers\PasseggeroController.cs" />
     <Compile Include="Controllers\ViaggiController.cs" />
     <Compile Include="Global.asax.cs">
@@ -207,8 +208,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Login\" />
-    <Folder Include="Views\Viaggi\" />
+    <Folder Include="Views\Passeggeri\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
