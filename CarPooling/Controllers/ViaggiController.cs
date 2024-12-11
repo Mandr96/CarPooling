@@ -10,6 +10,11 @@ namespace CarPooling.Controllers
 {
     public class ViaggiController : Controller
     {
-        
+        //TODO Parametrizzare
+        public ActionResult ViaggiDisponibili()
+        {
+            var viaggiList = Viaggio.SelectByTratta("Torino", "Milano");
+            return View(viaggiList);
+        }
     }
 }

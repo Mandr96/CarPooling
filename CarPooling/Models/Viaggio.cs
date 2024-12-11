@@ -18,19 +18,21 @@ namespace CarPooling.Models
         public bool Animali { get; set; }
         public bool Bagagli { get; set; }
         public int SostePreviste { get; set; }
+        public string FK_EmailAutista { get; set; }
 
         public void BuildFromReader(SqlDataReader reader)
         {
             IdViaggio = int.Parse(reader["IdViaggio"].ToString());
             CittaPartenza = reader["CittaPartenza"].ToString();
-            CittaPartenza = reader["CittaArrivo"].ToString();
+            CittaArrivo = reader["CittaArrivo"].ToString();
             DataOraPartenza = (DateTime)reader["DataOraPartenza"];
             Costo = double.Parse(reader["Costo"].ToString());
             DataOraArrivo = (DateTime)reader["DataOraArrivo"];
             Disponibile = bool.Parse(reader["Disponibile"].ToString());
-            Disponibile = bool.Parse(reader["Animali"].ToString());
-            Disponibile = bool.Parse(reader["Bagagli"].ToString());
+            Animali = bool.Parse(reader["Animali"].ToString());
+            Bagagli = bool.Parse(reader["Bagagli"].ToString());
             SostePreviste = int.Parse(reader["SostePreviste"].ToString());
+            FK_EmailAutista = reader["fk_EmailAutista"].ToString();
         }
 
         public static void InsertViaggio(Viaggio viaggio)
@@ -45,6 +47,7 @@ namespace CarPooling.Models
             cmd.Parameters.AddWithValue("animali", viaggio.Animali);
             cmd.Parameters.AddWithValue("bagagli", viaggio.Bagagli);
             cmd.Parameters.AddWithValue("soste", viaggio.SostePreviste);
+            cmd.Parameters.AddWithValue("fk_EmailAutista", viaggio.FK_EmailAutista);
             Database.ExecuteNonQuery(cmd);
         }
         public static Viaggio SelectById(int id)
