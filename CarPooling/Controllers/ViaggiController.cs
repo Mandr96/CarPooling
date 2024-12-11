@@ -10,10 +10,6 @@ namespace CarPooling.Controllers
 {
     public class ViaggiController : Controller
     {
-        public ActionResult TestViaggi()
-        {
-            var listaViaggi = new List<Viaggio>() { Viaggio.SelectById(1) };
-            return View(listaViaggi);
-        }
+        
     }
 }
