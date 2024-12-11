@@ -13,7 +13,10 @@ namespace CarPooling.Controllers
         {
             return View();
         }
-
+        public ActionResult RegistrazionePasseggero()
+        {
+            return View();
+        }
         public ActionResult HomePasseggero()
         {
             return View();
