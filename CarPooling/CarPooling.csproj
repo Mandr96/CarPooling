@@ -205,6 +205,8 @@
     <Content Include="Views\Passeggero\RegistrazionePasseggero.cshtml" />
     <Content Include="Views\Viaggi\TestViaggi.cshtml" />
     <Content Include="Views\Passeggeri\RegistrazionePasseggero.cshtml" />
+    <Content Include="Views\Autista\HomeAutista.cshtml" />
+    <Content Include="Views\Viaggi\Dettagli.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

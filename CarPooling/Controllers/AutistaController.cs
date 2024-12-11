@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CarPooling.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -9,7 +10,12 @@ namespace CarPooling.Controllers
 {
     public class AutistaController : Controller
     {
-        
+        public ActionResult HomeAutista(string email)
+        {         
+            List<Viaggio> viaggi = Viaggio.SelectByAutista(email);
+            ViewBag.Email = email;  
+            return View(viaggi);
+        }
        
     }
 }

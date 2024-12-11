@@ -23,13 +23,13 @@ namespace CarPooling.Models
         {
             IdViaggio = int.Parse(reader["IdViaggio"].ToString());
             CittaPartenza = reader["CittaPartenza"].ToString();
-            CittaPartenza = reader["CittaArrivo"].ToString();
+            CittaArrivo = reader["CittaArrivo"].ToString();
             DataOraPartenza = (DateTime)reader["DataOraPartenza"];
             Costo = double.Parse(reader["Costo"].ToString());
             DataOraArrivo = (DateTime)reader["DataOraArrivo"];
             Disponibile = bool.Parse(reader["Disponibile"].ToString());
-            Disponibile = bool.Parse(reader["Animali"].ToString());
-            Disponibile = bool.Parse(reader["Bagagli"].ToString());
+            Animali = bool.Parse(reader["Animali"].ToString());
+            Bagagli = bool.Parse(reader["Bagagli"].ToString());
             SostePreviste = int.Parse(reader["SostePreviste"].ToString());
         }
 

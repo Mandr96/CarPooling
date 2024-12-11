@@ -26,11 +26,11 @@ namespace CarPooling.Controllers
                     FormsAuthentication.SetAuthCookie(utente.Email, false);
                     if (User.IsInRole("Passeggero"))
                     {
-                        return RedirectToAction("HomePasseggero", "Passeggeri");
+                        return RedirectToAction("HomePasseggero", "Passeggeri", new { email = u.Email });
                     }
                     else
                     {
-                        return RedirectToAction("HomeAutista", "Autista");
+                        return RedirectToAction("HomeAutista", "Autista", new { email = u.Email });
                     }
 
                 }

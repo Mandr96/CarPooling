@@ -10,6 +10,11 @@ namespace CarPooling.Controllers
 {
     public class ViaggiController : Controller
     {
-        
+        public ActionResult Dettagli(int id)
+        {
+            Viaggio v = Viaggio.SelectById(id);
+            //List<Prenotazione> prenotazioni = Prenotazione.SelectBy
+            return View(v);
+        }
     }
 }

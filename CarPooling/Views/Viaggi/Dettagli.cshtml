@@ -1,0 +1,97 @@
+﻿@model CarPooling.Models.Viaggio
+
+@{
+    ViewBag.Title = "Dettagli";
+}
+
+<h2>Dettagli</h2>
+
+<div>
+    <h4>Viaggio</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.IdViaggio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdViaggio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CittaPartenza)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CittaPartenza)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CittaArrivo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CittaArrivo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataOraPartenza)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataOraPartenza)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Costo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Costo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DataOraArrivo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DataOraArrivo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Disponibile)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Disponibile)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Animali)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Animali)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Bagagli)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Bagagli)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.SostePreviste)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.SostePreviste)
+        </dd>
+
+    </dl>
+</div>
+<p>
+   @* AGGIUNGI BOTTONE PER CHIUDERE PRENOTAZIONI *@
+</p>
