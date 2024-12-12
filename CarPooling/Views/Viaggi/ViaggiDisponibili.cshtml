@@ -11,9 +11,10 @@
 </style>
 <h2>Viaggi Disponibili</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+<div>
+    @Html.Action("PartialRicercaViaggi", "Passeggeri")
+</div>
+
 <div class="row" style="font-weight:bold;font-size:20px">
     <div class="col-md-3">
         Data
@@ -105,6 +106,10 @@
     </div>
     <hr />
 }
+
+<div>
+    @Html.Action("PartialRicercaViaggi", "Passeggeri")
+</div>
 
 @section scripts{
     <script type="text/javascript">

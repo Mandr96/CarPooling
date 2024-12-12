@@ -19,10 +19,17 @@ namespace CarPooling.Controllers
             return View(v);
         }
         
-        //TODO Parametrizzare
-        public ActionResult ViaggiDisponibili()
+        public ActionResult ViaggiDisponibili(Viaggio viaggio)
         {
-            var viaggiList = Viaggio.SelectByTratta("Torino", "Milano");
+            List<Viaggio> viaggiList;
+            if (viaggio.DataOraPartenza != null)
+            {
+                viaggiList = Viaggio.SelectByTratta(viaggio.DataOraPartenza, viaggio.CittaPartenza, viaggio.CittaArrivo);
+            }
+            else
+            {
+                viaggiList = Viaggio.SelectByTratta(DateTime.Now, viaggio.CittaPartenza, viaggio.CittaArrivo);
+            }
             return View(viaggiList);
         }
     }
