@@ -31,11 +31,11 @@ namespace CarPooling.Models
             Database.ExecuteNonQuery(cmd);
         }
 
-        public static List<Viaggio> SelectByIdViaggio(int idViaggio)
+        public static List<Prenotazione> SelectByIdViaggio(int idViaggio)
         {
             SqlCommand cmd = new SqlCommand("SELECT * FROM Prenotazione WHERE fk_IdViaggio = @id");
             cmd.Parameters.AddWithValue("id", idViaggio);
-            return Database.GetObjectList<Viaggio>(cmd);
+            return Database.GetObjectList<Prenotazione>(cmd);
         }
     }
 }
