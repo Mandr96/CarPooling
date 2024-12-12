@@ -90,8 +90,17 @@
             @Html.DisplayFor(model => model.SostePreviste)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.FK_EmailAutista)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FK_EmailAutista)
+        </dd>
+
     </dl>
 </div>
 <p>
-   @* AGGIUNGI BOTTONE PER CHIUDERE PRENOTAZIONI *@
+    @Html.ActionLink("Edit", "Edit", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
 </p>
