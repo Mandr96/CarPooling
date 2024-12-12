@@ -136,6 +136,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PasseggeriController.cs" />
+    <Compile Include="Controllers\PrenotazioniController.cs" />
     <Compile Include="Controllers\ViaggiController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -207,9 +208,12 @@
     <Content Include="Views\Passeggeri\_PartialRicercaViaggi.cshtml" />
     <Content Include="Views\Passeggeri\HomePasseggero.cshtml" />
     <Content Include="Views\Passeggeri\RegistrazionePasseggero.cshtml" />
+    <Content Include="Views\Viaggi\ViaggiDisponibili.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Passeggeri\" />
+    <Folder Include="Views\Prenotazioni\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
