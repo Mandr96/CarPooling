@@ -45,67 +45,67 @@
                 € @item.Costo.ToString("N")
             </div>
         </div>
-    </div>
-    <div class="itemDetails" style="display:none;color:dimgray;font-size:16px">
-        <div class="row">
-            <div class="col-md-1"></div>
-            <div class="col-md-3">
-                Partenza da @item.CittaPartenza alle @item.DataOraPartenza.ToShortTimeString()
-            </div>
-            <div class="col-md-3">
-                Arrivo a @item.CittaArrivo previsto alle @item.DataOraArrivo.ToShortTimeString()
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4"></div>
-            <div class="col-md-3">
-                Quota richiesta: € @item.Costo.ToString("N")
-            </div>
-        </div>
-        @if (item.Bagagli)
-        {
+        <div class="itemDetails" style="display:none;color:dimgray;font-size:16px">
             <div class="row">
                 <div class="col-md-1"></div>
                 <div class="col-md-3">
-                    &#10004     Bagagli
+                    Partenza da @item.CittaPartenza alle @item.DataOraPartenza.ToShortTimeString()
                 </div>
-            </div>
-        }
-        @if (item.Animali)
-        {
-            <div class="row">
-                <div class="col-md-1"></div>
                 <div class="col-md-3">
-                    &#10004     Animali
+                    Arrivo a @item.CittaArrivo previsto alle @item.DataOraArrivo.ToShortTimeString()
                 </div>
             </div>
-        }
-        <div class="row">
-            <div class="col-md-4"></div>
-            <div class="col-md-3">
-                Soste previste: @item.SostePreviste
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-3">
+                    Quota richiesta: € @item.Costo.ToString("N")
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-1"></div>
-            <div class="col-md-6">
-                Passeggeri:
-                <ul id="ListaPass">
-                </ul>
-
-            </div>
-            @if (item.Disponibile)
+            @if (item.Bagagli)
             {
-                <div class="col-md-3">
-                    @using (Html.BeginForm("ChiudiPrenotazione", "Autista"))
-                    {
-                        @Html.Hidden("id", item.IdViaggio)
-                        @Html.Hidden("autista", item.FK_EmailAutista)
-                        <button type="submit" class="btn btn-success">Chiudi</button>
-                    }
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-3">
+                        &#10004     Bagagli
+                    </div>
                 </div>
             }
+            @if (item.Animali)
+            {
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-3">
+                        &#10004     Animali
+                    </div>
+                </div>
+            }
+            <div class="row">
+                <div class="col-md-4"></div>
+                <div class="col-md-3">
+                    Soste previste: @item.SostePreviste
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-6">
+                    Passeggeri:
+                    <ul id="ListaPass">
+                    </ul>
 
+                </div>
+                @if (item.Disponibile)
+                {
+                    <div class="col-md-3">
+                        @using (Html.BeginForm("ChiudiPrenotazione", "Autista"))
+                        {
+                            @Html.Hidden("id", item.IdViaggio)
+                            @Html.Hidden("autista", item.FK_EmailAutista)
+                            <button type="submit" class="btn btn-success">Chiudi</button>
+                        }
+                    </div>
+                }
+
+            </div>
         </div>
     </div>
     <hr />
@@ -121,7 +121,8 @@
                 $(this).css("background-color", "white");
             });
             $('.itemViaggio').click(function () {
-                $(this).siblings('.itemDetails').slideToggle();
+                $(this).children('#ListaPass').empty()
+                $(this).children('.itemDetails').slideToggle();
                 /*if(toggleisdown)*/
                 var idViaggio = $(this).data('id');
                 console.log("data-id trovato:", idViaggio);
@@ -136,7 +137,7 @@
                             var itemLi = "<li>" + item.Nome +
                                 " " + item.Cognome + "</li>";
 
-                            $('#ListaPass').append(itemLi);
+                            $(this).children('#ListaPass').append(itemLi);
                         })
                     },  
                     error: function () {

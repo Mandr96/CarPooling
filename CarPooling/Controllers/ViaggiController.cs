@@ -26,12 +26,6 @@ namespace CarPooling.Controllers
             return View(viaggiList);
         }
 
-        public ActionResult GetViaggiatori(int id)
-        {
-            List<Passeggero> passeggeri = Viaggio.GetPasseggeriByViaggio(id);
-            return Json(passeggeri, JsonRequestBehavior.AllowGet);
-        }
-
         public ActionResult CreaViaggio()
         {
             return View();
@@ -50,6 +44,12 @@ namespace CarPooling.Controllers
                 return RedirectToAction("HomeAutista", "Autista");
             }
             return View(viaggio);
+        }
+
+        public ActionResult GetViaggiatori(int id)
+        {
+            List<Passeggero> passeggeri = Viaggio.GetPasseggeriByViaggio(id);
+            return Json(passeggeri, JsonRequestBehavior.AllowGet);
         }
     }
 }
