@@ -1,0 +1,123 @@
+﻿@model IEnumerable<CarPooling.Models.Viaggio>
+
+@{
+    ViewBag.Title = "ViaggiDisponibili";
+}
+<style>
+    tr.no-border td {
+        border-bottom: none;
+        border-top: none
+    }
+</style>
+<h2>Viaggi Disponibili</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div class="row" style="font-weight:bold;font-size:20px">
+    <div class="col-md-3">
+        Data
+    </div>
+    <div class="col-md-3">
+        Orario di partenza
+    </div>
+    <div class="col-md-3">
+        Tratta
+    </div>
+    <div class="col-md-3">
+        @Html.DisplayNameFor(model => model.Costo)
+    </div>
+</div>
+<hr />
+@foreach (CarPooling.Models.Viaggio item in Model)
+{
+    <div class="itemViaggio" style="font-size:16px;padding:4px">
+        <div class="row">
+            <div class="col-md-3">
+                @item.DataOraPartenza.ToShortDateString()
+            </div>
+            <div class="col-md-3">
+                @item.DataOraPartenza.ToShortTimeString()
+            </div>
+            <div class="col-md-3">
+                @item.CittaPartenza -> @item.CittaArrivo
+            </div>
+            <div class="col-md-3">
+                € @item.Costo.ToString("N")
+            </div>
+        </div>
+    </div>
+    <div class="itemDetails" style="display:none;color:dimgray;font-size:16px">
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-3">
+                Partenza da @item.CittaPartenza alle @item.DataOraPartenza.ToShortTimeString()
+            </div>
+            <div class="col-md-3">
+                Arrivo a @item.CittaArrivo previsto alle @item.DataOraArrivo.ToShortTimeString()
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-3">
+                Quota richiesta: € @item.Costo.ToString("N")
+            </div>
+        </div>
+        @if (item.Bagagli)
+        {
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    &#10004     Bagagli
+                </div>
+            </div>
+        }
+        @if (item.Animali)
+        {
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-3">
+                    &#10004     Animali
+                </div>
+            </div>
+        }
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-3">
+                Soste previste: @item.SostePreviste
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-6">
+                Contatta l'autista: @item.FK_EmailAutista
+            </div>
+            <div class="col-md-3">
+                @using (Html.BeginForm("CreaPrenotazione", "Prenotazioni"))
+                { 
+                    @Html.Hidden("EmailPasseggero", User.Identity.Name);
+                    @Html.Hidden("IdViaggio", item.IdViaggio);
+                    @Html.Hidden("DataOra", DateTime.Now);
+                    <button type="submit" class="btn btn-success">Prenota</button>
+                }
+            </div>
+        </div>
+    </div>
+    <hr />
+}
+
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".itemViaggio").hover(function () {
+                $(this).css('cursor', 'pointer');
+                $(this).css("background-color", "lavender");
+            }, function () {
+                $(this).css("background-color", "white");
+            });
+            $('.itemViaggio').click(function () {
+                $(this).siblings('.itemDetails').slideToggle();
+            })
+        })
+    </script>
+}

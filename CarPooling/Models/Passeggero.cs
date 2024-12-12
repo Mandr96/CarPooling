@@ -43,26 +43,41 @@ namespace CarPooling.Models
         {
             string query = "INSERT INTO Passeggero VALUES (@EmailPasseggero, @Nome, @Cognome, @CartaIdentita, @Telefono);";
             SqlCommand cmd = new SqlCommand(query);
-            cmd.Parameters.AddWithValue("EmailPasseggero", p.EmailAutista);
+
+
+            cmd.Parameters.AddWithValue("EmailPasseggero", p.EmailPasseggero);
             cmd.Parameters.AddWithValue("Nome", p.Nome);
             cmd.Parameters.AddWithValue("Cognome", p.Cognome);
             cmd.Parameters.AddWithValue("CartaIdentita", p.Cognome);
             cmd.Parameters.AddWithValue("Telefono", p.Cognome);
 
+            Database.ExecuteNonQuery(cmd);
+        }
 
+        public static List<Viaggio> GetViaggiByPasseggero(string emailPasseggero)
+        {
+            SqlCommand cmd = new SqlCommand("SELECT * FROM Passeggero pa JOIN Prenotazione pr ON pa.EmailPasseggero=pr.fk_EmailPasseggero " +
+                "JOIN Viaggio v ON pr.fk_IdViaggio=v.IdViaggio WHERE fk_EmailPasseggero = @email;");
+            cmd.Parameters.AddWithValue("email", emailPasseggero);
+            return Database.GetObjectList<Viaggio>(cmd);
+        }
+
+        public static int CountPrenotazioniTotali()
+        {
+            int conto = 0;
+            SqlCommand cmd = new SqlCommand("SELECT COUNT(IdPrenotazione) AS Conto FROM Prenotazione", Database.Connection);
             try
             {
-                ExecuteNonQuery(cmd);
-
+                Database.Connection.Open(); //non funziona
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    conto = (int)reader["Conto"];
+                }
+                reader.Close();
             }
-            catch (Exception ex)
-            {
-                ViewBag.ErroreInsert = "Errore inserimento Passeggero" + ex.Message;
-            }
-            finally
-            {
-                conn.Close();
-            }
+            finally { Database.Connection.Close(); }
+            return conto;
         }
 
     }

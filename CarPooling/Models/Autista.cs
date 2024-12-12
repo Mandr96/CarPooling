@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Helpers;
 
+
 namespace CarPooling.Models
 {
     public class Autista : DatabaseObject
@@ -12,22 +13,28 @@ namespace CarPooling.Models
         public string EmailAutista {  get; set; }
         public string Nome {  get; set; }
         public string Cognome { get; set; }
+        public DateTime DataNascita { get; set; }
+        public int NumPatente { get; set; }
+        public DateTime scadenzaPatente { get; set; }
+        public string Auto { get; set; }
+        public string Tel { get; set; }
+        public string PhotoFileName { get; set; }
+        public HttpPostedFileBase File { get; set; }
+        
         public void BuildFromReader(SqlDataReader reader)
         {
-<<<<<<< Updated upstream
-            //EmailAutista = reader["emailAutista"].ToString();
-            //...
-=======
+
+
             EmailAutista = reader["emailAutista"].ToString();
             Nome = reader["Nome"].ToString();
             Cognome = reader["Cognome"].ToString();
-            DataNascita = (DateTime)(reader["DataNascita"]);
-            NumPatente = int.Parse(reader["NumPatente"]);
-            scadenzaPatente = (DateTime)(reader["ScadenzaPatente"]);
+            DataNascita = (DateTime)reader["DataNascita"];
+            NumPatente = int.Parse(reader["NumPatente"].ToString());
+            scadenzaPatente = (DateTime)reader["ScadenzaPatente"];
             Auto = reader["Auto"].ToString();
             Tel = reader["Telefono"].ToString();
             PhotoFileName = reader["PhotoFileName"].ToString();
->>>>>>> Stashed changes
+
         }
 
         public static List<Autista> SelectAllAutisti()
@@ -38,12 +45,11 @@ namespace CarPooling.Models
 
         public static Autista SelectById(string email)
         {
-            SqlCommand cmd = new SqlCommand("SELECT * FROM Autista WHERE emailAutista = @email");
+            SqlCommand cmd = new SqlCommand("SELECT * FROM Autista WHERE EmailAutista = @email");
             cmd.Parameters.AddWithValue("email", email);
             return Database.GetObject<Autista>(cmd);
         }
-<<<<<<< Updated upstream
-=======
+
 
         public static void InsertAutista(Autista autista)
         {
@@ -59,22 +65,8 @@ namespace CarPooling.Models
             cmd.Parameters.AddWithValue("Telefono", autista.Tel);
             cmd.Parameters.AddWithValue("PhotoFileName", autista.PhotoFileName);
 
-            try
-            {
-                ExecuteNonQuery(cmd);
-                    
-            }
-            catch(Exception ex)
-            {
-                ViewBag.ErroreInsert = "Errore inserimento Passeggero" + ex.Message;
-            }
-            finally
-            {
-                conn.Close();
-            }
+            Database.ExecuteNonQuery(cmd); 
         }   
 
-
->>>>>>> Stashed changes
     }
 }
