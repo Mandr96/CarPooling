@@ -10,14 +10,6 @@ namespace CarPooling.Controllers
 {
     public class ViaggiController : Controller
     {
-        public ActionResult Dettagli(int id)
-        {
-            Viaggio v = Viaggio.SelectById(id);
-            List<Prenotazione> prenotazioni = Prenotazione.SelectByIdViaggio(id);
-            //Dalle prenotazioni, recuperare nome e cognome dei passeggeri 
-           
-            return View(v);
-        }
         
         public ActionResult ViaggiDisponibili(Viaggio viaggio)
         {
@@ -31,6 +23,12 @@ namespace CarPooling.Controllers
                 viaggiList = Viaggio.SelectByTratta(DateTime.Now, viaggio.CittaPartenza, viaggio.CittaArrivo);
             }
             return View(viaggiList);
+        }
+
+        public ActionResult GetViaggiatori(int id)
+        {
+            List<Passeggero> passeggeri = Viaggio.GetPasseggeriByViaggio(id);
+            return Json(passeggeri, JsonRequestBehavior.AllowGet);
         }
     }
 }

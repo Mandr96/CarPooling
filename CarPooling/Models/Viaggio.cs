@@ -21,6 +21,8 @@ namespace CarPooling.Models
         public int SostePreviste { get; set; }
         public string FK_EmailAutista { get; set; }
 
+        public List<Prenotazione> Prenotazioni { get; set; }    
+
         public void BuildFromReader(SqlDataReader reader)
         {
             IdViaggio = int.Parse(reader["IdViaggio"].ToString());
@@ -63,6 +65,8 @@ namespace CarPooling.Models
             cmd.Parameters.AddWithValue("email", emailAutista);
             return Database.GetObjectList<Viaggio>(cmd);
         }
+
+
         public static List<Viaggio> SelectByTratta(string cittaPartenza, string cittaArrivo)
         {
             SqlCommand cmd = new SqlCommand("SELECT * FROM Viaggio WHERE CittaPartenza = @partenza AND CittaArrivo = @arrivo");
@@ -87,10 +91,38 @@ namespace CarPooling.Models
 
         public static void UpdateDisponibilita(int id)
         {
-            string query = "UPDATE viaggi SET disponibile = 0 WHERE IdViaggio = @id";
+            string query = "UPDATE viaggio SET Disponibile = 0 WHERE IdViaggio = @id";
             SqlCommand cmd = new SqlCommand(query);
             cmd.Parameters.AddWithValue("id", id);
             Database.ExecuteNonQuery(cmd);   
+
+        }
+
+        public static List<Passeggero> GetPasseggeriByViaggio(int id)
+        {
+            List<Passeggero> p = new List<Passeggero>();
+            string query = "SELECT COGNOME, NOME FROM PASSEGGERO AS P " +
+                "JOIN PRENOTAZIONE AS PR ON P.EMAILPASSEGGERO = PR.FK_EMAILPASSEGGERO " +
+                "WHERE PR.FK_IDVIAGGIO = @id";
+            
+
+            try
+            {
+                Database.Connection.Open(); 
+                SqlCommand cmd = new SqlCommand(query, Database.Connection);
+                cmd.Parameters.AddWithValue("id", id);
+                SqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    Passeggero pas = new Passeggero();
+                    pas.Nome= (string)reader["Nome"];
+                    pas.Cognome= (string)reader["Cognome"];
+                    p.Add(pas);
+                }
+                reader.Close();
+            }
+            finally { Database.Connection.Close(); }
+            return p;
 
         }
     }
