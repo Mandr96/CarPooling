@@ -21,15 +21,15 @@ namespace CarPooling.Controllers
         {
             if (ModelState.IsValid)
             {
-                Utente utente = Utente.SelectUtenteById(u.Email);
-                if (u != null)
-                {
+                Utente utente = Utente.SelectUtenteById(u.Email, u.Password);
+                if (utente != null)
+                {//TODO da sistemare
                     FormsAuthentication.SetAuthCookie(utente.Email, false);
                     if(User.IsInRole("Passeggero")){
-                        return RedirectToAction("RegistrazionePasseggero", "Passeggero");
+                        return RedirectToAction("HomePasseggero", "Passeggeri");
                     }else
                     {
-                        return RedirectToAction("RegistrazioneAutista", "Autista");
+                        return RedirectToAction("HomeAutista", "Autista");
                     }
                 }else
                 {

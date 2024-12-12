@@ -26,10 +26,11 @@ namespace CarPooling.Models
             Ruolo = (string)reader["Ruolo"];
         }
 
-        public static Utente SelectUtenteById(string id)
+        public static Utente SelectUtenteById(string id, string pwd)
         {
-            SqlCommand cmd = new SqlCommand("SELECT * FORM Utente WHERE Email = @id");
+            SqlCommand cmd = new SqlCommand("SELECT * FROM Utente WHERE Email = @id AND Password=@pwd");
             cmd.Parameters.AddWithValue("id", id);
+            cmd.Parameters.AddWithValue("pwd", pwd);
             return Database.GetObject<Utente>(cmd);
         }
     }
