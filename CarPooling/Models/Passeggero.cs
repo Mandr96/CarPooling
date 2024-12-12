@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -9,10 +10,19 @@ namespace CarPooling.Models
 {
     public class Passeggero : DatabaseObject
     {
+        [Required(ErrorMessage ="Campo obbligatorio")]
         public string EmailPasseggero { get; set; }
+
+        [Required(ErrorMessage = "Campo obbligatorio")]
         public string Nome { get; set; }
+
+        [Required(ErrorMessage = "Campo obbligatorio")]
         public string Cognome { get; set; }
+
+        [Required(ErrorMessage = "Campo obbligatorio")]
         public string CartaIdentita { get; set; }
+
+        [Required(ErrorMessage = "Campo obbligatorio")]
         public string Telefono { get; set; }
        
 
@@ -65,7 +75,7 @@ namespace CarPooling.Models
             SqlCommand cmd = new SqlCommand("SELECT COUNT(IdPrenotazione) AS Conto FROM Prenotazione", Database.Connection);
             try
             {
-                Database.Connection.Open(); //non funziona
+                Database.Connection.Open();
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
@@ -75,6 +85,17 @@ namespace CarPooling.Models
             }
             finally { Database.Connection.Close(); }
             return conto;
+        }
+
+        public static void EditPasseggero(Passeggero p)
+        {
+            SqlCommand cmd = new SqlCommand("UPDATE Passeggero SET Nome=@nom, Cognome=@cog, CartaIdentita=@car, Telefono=@tel WHERE email=@ema");
+            cmd.Parameters.AddWithValue("nom", p.Nome);
+            cmd.Parameters.AddWithValue("cog", p.Cognome);
+            cmd.Parameters.AddWithValue("car", p.CartaIdentita);
+            cmd.Parameters.AddWithValue("tel", p.Telefono);
+            cmd.Parameters.AddWithValue("ema", p.EmailPasseggero);
+            Database.ExecuteNonQuery(cmd);
         }
     }
 }
