@@ -24,7 +24,7 @@ namespace CarPooling.Controllers
                 Utente utente = Utente.SelectUtenteById(u.Email, u.Password);
                 if(utente.Email == u.Email) {
                     FormsAuthentication.SetAuthCookie(utente.Email, false);
-                    if (User.IsInRole("Passeggero"))
+                    if (utente.Ruolo == "Passeggero")
                     {
                         return RedirectToAction("HomePasseggero", "Passeggeri", new { email = u.Email });
                     }
