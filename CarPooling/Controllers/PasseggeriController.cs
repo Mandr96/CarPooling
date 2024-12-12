@@ -10,6 +10,7 @@ using System.Web.Security;
 
 namespace CarPooling.Controllers
 {
+    [Authorize(Roles = "Passeggero")]
     public class PasseggeriController : Controller
     {
         // GET: Passeggeri
@@ -17,10 +18,12 @@ namespace CarPooling.Controllers
         {
             return View();
         }
+
         public ActionResult RegistrazionePasseggero()
         {
             return View();
         }
+
         public ActionResult HomePasseggero(string email)
         {
             return View(Passeggero.SelectById(email));
@@ -39,6 +42,25 @@ namespace CarPooling.Controllers
         public ActionResult PrenotazioniTotali()
         {
             return Json(Passeggero.CountPrenotazioniTotali(), JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult ModificaPasseggero(string email)
+        {
+            return View(Passeggero.SelectById(email));
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ModificaPasseggero(Passeggero p)
+        {
+            if (ModelState.IsValid)
+            {
+                Passeggero.EditPasseggero(p);
+                return RedirectToAction("HomePasseggero", new { email = p.EmailPasseggero });
+            }
+            else
+            {
+                return View(p);
+            }
         }
     }
 }
