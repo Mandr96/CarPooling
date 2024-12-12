@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -9,15 +11,32 @@ namespace CarPooling.Models
     public class Viaggio : DatabaseObject
     {
         public int IdViaggio { get; set; }
+        [Required(ErrorMessage ="Campo obbligatorio")]
+        [DisplayName("Citta di partenza")]
         public string CittaPartenza { get; set; }
+        [Required(ErrorMessage = "Campo obbligatorio")]
+        [DisplayName("Citta di destinazione")]
         public string CittaArrivo { get; set; }
+        [Required(ErrorMessage = "Campo obbligatorio")]
+        [DisplayName("Data e ora di partenza")]
         public DateTime DataOraPartenza { get; set; }
+        [Required(ErrorMessage = "Campo obbligatorio")]
+        [DisplayName("Quota richiesta ai passeggeri")]
         public double Costo { get; set; }
+        [Required(ErrorMessage = "Campo obbligatorio")]
+        [DisplayName("Data e ora di arrivo")]
         public DateTime DataOraArrivo { get; set; }
         public bool Disponibile { get; set; }
+        [Required(ErrorMessage = "Campo obbligatorio")]
+        [DisplayName("Ammessi animali: ")]
         public bool Animali { get; set; }
+        [Required(ErrorMessage = "Campo obbligatorio")]
+        [DisplayName("Ammessi bagagli: ")]
         public bool Bagagli { get; set; }
+        [Required(ErrorMessage = "Campo obbligatorio")]
+        [DisplayName("Soste previste durante il viaggio")]
         public int SostePreviste { get; set; }
+        [Required(ErrorMessage = "Campo obbligatorio")]
         public string FK_EmailAutista { get; set; }
 
         public void BuildFromReader(SqlDataReader reader)
@@ -37,7 +56,7 @@ namespace CarPooling.Models
 
         public static void InsertViaggio(Viaggio viaggio)
         {
-            SqlCommand cmd = new SqlCommand("INSERT INTO Viaggio VALUES (@partenza, @arrivo, @dataOra, @costo, @oraArrivo, @disp, @animali, @bagagli, @soste);");
+            SqlCommand cmd = new SqlCommand("INSERT INTO Viaggio VALUES (@partenza, @arrivo, @dataOra, @costo, @oraArrivo, @disp, @animali, @bagagli, @soste, @fk_EmailAutista);");
             cmd.Parameters.AddWithValue("partenza", viaggio.CittaPartenza);
             cmd.Parameters.AddWithValue("arrivo", viaggio.CittaArrivo);
             cmd.Parameters.AddWithValue("dataOra", viaggio.DataOraPartenza);
