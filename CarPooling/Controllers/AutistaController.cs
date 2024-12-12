@@ -14,14 +14,16 @@ namespace CarPooling.Controllers
         {         
             List<Viaggio> viaggi = Viaggio.SelectByAutista(email);
             ViewBag.Email = email;  
+
+           
             return View(viaggi);
         }
 
-        public ActionResult ChiudiPrenotazione(int id)
+        public ActionResult ChiudiPrenotazione(int id, string autista)
         {
 
             Viaggio.UpdateDisponibilita(id);
-            return RedirectToAction("HomeAutista");
+            return RedirectToAction("HomeAutista", "Autista", new { email = autista });
         }
        
     }

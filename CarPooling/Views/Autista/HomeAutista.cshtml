@@ -31,7 +31,7 @@
 <hr />
 @foreach (CarPooling.Models.Viaggio item in Model)
 {
-    <div class="itemViaggio" style="font-size:16px;padding:4px">
+    <div class="itemViaggio" data-id="@item.IdViaggio" sstyle="font-size:16px;padding:4px">
         <div class="row">
             <div class="col-md-3">
                 @item.DataOraPartenza.ToShortDateString()
@@ -91,14 +91,22 @@
             <div class="col-md-1"></div>
             <div class="col-md-6">
                 Passeggeri:
+                <ul id="ListaPass">
+                </ul>
+
             </div>
-            <div class="col-md-3">
-                @using (Html.BeginForm("ChiudiPrenotazioni", "Viaggi"))
-                {
-                    @Html.Hidden("id", item.IdViaggio)            
-                    <button type="submit" class="btn btn-success">Chiudi</button>
-                }
-            </div>
+            @if (item.Disponibile)
+            {
+                <div class="col-md-3">
+                    @using (Html.BeginForm("ChiudiPrenotazione", "Autista"))
+                    {
+                        @Html.Hidden("id", item.IdViaggio)
+                        @Html.Hidden("autista", item.FK_EmailAutista)
+                        <button type="submit" class="btn btn-success">Chiudi</button>
+                    }
+                </div>
+            }
+
         </div>
     </div>
     <hr />
@@ -115,7 +123,28 @@
             });
             $('.itemViaggio').click(function () {
                 $(this).siblings('.itemDetails').slideToggle();
-            })
-        })
+                /*if(toggleisdown)*/
+                var idViaggio = $(this).data('id');
+                console.log("data-id trovato:", idViaggio);
+                $.ajax({
+                    url: '@Url.Action("GetViaggiatori", "Viaggi")',
+                    type: 'GET',
+                    dataType: 'json',
+                    data: { id: idViaggio },
+                    success: function (data) {
+                        console.log(data);
+                        $.each(data, function (index, item) {
+                            var itemLi = "<li>" + item.Nome +
+                                " " + item.Cognome + "</li>";
+
+                            $('#ListaPass').append(itemLi);
+                        })
+                    },  
+                    error: function () {
+                        console.error("Errore durante la chiamata AJAX:");  
+                    }
+                });
+            });
+        });
     </script>
 }
