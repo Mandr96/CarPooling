@@ -1,0 +1,69 @@
+﻿@model CarPooling.Models.Viaggio
+@{
+    ViewBag.Title = "CreaViaggio";
+}
+
+<h2>Nuovo viaggio</h2>
+@using(Html.BeginForm()) { 
+@Html.Hidden("FK_EmailAutista", User.Identity.Name.ToString())
+<div class="row">
+    <div class="col-md-4">
+        @Html.DisplayNameFor(model => model.CittaPartenza)
+        @Html.TextBoxFor(model => model.CittaPartenza, new { @class = "form-control" })
+    </div>
+    <div class="col-md-1"></div>
+    <div class="col-md-6">
+        @Html.DisplayNameFor(model => model.CittaArrivo)
+        @Html.TextBoxFor(model => model.CittaArrivo, new { @class = "form-control" })
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        @Html.DisplayNameFor(model => model.DataOraPartenza)
+        @Html.TextBoxFor(model => model.DataOraPartenza, new { @class = "form-control", @type = "date" })
+    </div>
+    <div class="col-md-1">
+        <br />
+        @Html.TextBox("timePartenza", "00:00", new { @class = "form-control", @type = "time" })
+    </div>
+    <div class="col-md-1"></div>
+    <div class="col-md-3">
+        @Html.DisplayNameFor(model => model.DataOraArrivo)
+        @Html.TextBoxFor(model => model.DataOraArrivo, new { @class = "form-control", @type = "date" })
+    </div>
+    <div class="col-md-1">
+        <br />
+        @Html.TextBox("timeArrivo", "00:00", new { @class = "form-control", @type = "time" })
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        @Html.DisplayNameFor(model => model.Costo)
+        @Html.TextBoxFor(model => model.Costo, new { @class = "form-control", @type = "number" })
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        @Html.DisplayNameFor(model => model.Animali)
+        @Html.CheckBoxFor(model => model.Animali)
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        @Html.DisplayNameFor(model => model.Bagagli)
+        @Html.CheckBoxFor(model => model.Bagagli)
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        @Html.DisplayNameFor(model => model.SostePreviste)
+        @Html.TextBoxFor(model => model.SostePreviste, new { @class = "form-control", @type = "number" })
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-3">
+        <button type="submit" class="btn btn-success">Crea</button>
+    </div>
+</div>
+}
+

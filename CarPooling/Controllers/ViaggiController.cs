@@ -1,4 +1,5 @@
 ﻿using CarPooling.Models;
+using Microsoft.Ajax.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,6 +30,26 @@ namespace CarPooling.Controllers
         {
             List<Passeggero> passeggeri = Viaggio.GetPasseggeriByViaggio(id);
             return Json(passeggeri, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult CreaViaggio()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public ActionResult CreaViaggio(Viaggio viaggio, TimeSpan timePartenza, TimeSpan timeArrivo)
+        {
+            if (ModelState.IsValid && timePartenza != null && timeArrivo != null)
+            {
+                viaggio.Disponibile = true;
+                viaggio.DataOraPartenza = viaggio.DataOraPartenza.Add(timePartenza);
+                viaggio.DataOraArrivo = viaggio.DataOraArrivo.Add(timeArrivo);
+                Viaggio.InsertViaggio(viaggio);
+                return RedirectToAction("HomeAutista", "Autista");
+            }
+            return View(viaggio);
         }
     }
 }
