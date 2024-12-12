@@ -18,6 +18,7 @@ namespace CarPooling.Models
         public bool Animali { get; set; }
         public bool Bagagli { get; set; }
         public int SostePreviste { get; set; }
+        public string FK_EmailAutista { get; set; }
 
         public void BuildFromReader(SqlDataReader reader)
         {
@@ -31,6 +32,7 @@ namespace CarPooling.Models
             Animali = bool.Parse(reader["Animali"].ToString());
             Bagagli = bool.Parse(reader["Bagagli"].ToString());
             SostePreviste = int.Parse(reader["SostePreviste"].ToString());
+            FK_EmailAutista = reader["fk_EmailAutista"].ToString();
         }
 
         public static void InsertViaggio(Viaggio viaggio)
@@ -45,6 +47,7 @@ namespace CarPooling.Models
             cmd.Parameters.AddWithValue("animali", viaggio.Animali);
             cmd.Parameters.AddWithValue("bagagli", viaggio.Bagagli);
             cmd.Parameters.AddWithValue("soste", viaggio.SostePreviste);
+            cmd.Parameters.AddWithValue("fk_EmailAutista", viaggio.FK_EmailAutista);
             Database.ExecuteNonQuery(cmd);
         }
         public static Viaggio SelectById(int id)

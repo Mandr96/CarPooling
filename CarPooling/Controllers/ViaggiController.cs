@@ -16,5 +16,11 @@ namespace CarPooling.Controllers
             //List<Prenotazione> prenotazioni = Prenotazione.SelectBy
             return View(v);
         }
+        //TODO Parametrizzare
+        public ActionResult ViaggiDisponibili()
+        {
+            var viaggiList = Viaggio.SelectByTratta("Torino", "Milano");
+            return View(viaggiList);
+        }
     }
 }
