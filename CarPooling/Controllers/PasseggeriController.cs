@@ -17,7 +17,10 @@ namespace CarPooling.Controllers
         {
             return View();
         }
-
+        public ActionResult RegistrazionePasseggero()
+        {
+            return View();
+        }
         public ActionResult HomePasseggero()
         {
             //string emailPasseggero = User.Identity.Name; //da coniugare con login

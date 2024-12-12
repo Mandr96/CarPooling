@@ -22,20 +22,22 @@ namespace CarPooling.Controllers
             if (ModelState.IsValid)
             {
                 Utente utente = Utente.SelectUtenteById(u.Email, u.Password);
-                if (utente != null)
-                {//TODO da sistemare
+                if(utente.Email == u.Email) {
                     FormsAuthentication.SetAuthCookie(utente.Email, false);
-                    if(User.IsInRole("Passeggero")){
-                        return RedirectToAction("HomePasseggero", "Passeggeri");
-                    }else
+                    if (User.IsInRole("Passeggero"))
                     {
-                        return RedirectToAction("HomeAutista", "Autista");
+                        return RedirectToAction("HomePasseggero", "Passeggeri", new { email = u.Email });
                     }
-                }else
-                {
-                    TempData["LoginError"] = "Utente non trovato";
+                    else
+                    {
+                        return RedirectToAction("HomeAutista", "Autista", new { email = u.Email });
+                    }
 
                 }
+                else
+                {
+                    TempData["LoginError"] = "Utente non trovato";
+                }                               
             } else
             {
                 TempData["LoginError"] = "Inserisci email e password";

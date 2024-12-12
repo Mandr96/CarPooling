@@ -20,17 +20,20 @@ namespace CarPooling.Models
 
         public void BuildFromReader(SqlDataReader reader)
         {
+
             Email = (string)reader["Email"];
             Username = (string)reader["Username"];
             Password = (string)reader["Password"];
             Ruolo = (string)reader["Ruolo"];
         }
 
-        public static Utente SelectUtenteById(string id, string pwd)
+        public static Utente SelectUtenteById(string id, string password)
         {
-            SqlCommand cmd = new SqlCommand("SELECT * FROM Utente WHERE Email = @id AND Password=@pwd");
+            SqlCommand cmd = new SqlCommand("SELECT * FROM Utente WHERE Email = @id AND Password = @password");
             cmd.Parameters.AddWithValue("id", id);
-            cmd.Parameters.AddWithValue("pwd", pwd);
+            cmd.Parameters.AddWithValue("password", password);
+            
+            
             return Database.GetObject<Utente>(cmd);
         }
     }

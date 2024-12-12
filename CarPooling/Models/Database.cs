@@ -26,8 +26,12 @@ namespace CarPooling.Models
                     Connection.Open();
                 }
                 reader = cmd.ExecuteReader();
-                reader.Read();
-                obj.BuildFromReader(reader);
+
+                if(reader.Read())
+                {
+                    obj.BuildFromReader(reader);
+                }
+                
             }
             catch (Exception ex)
             {

@@ -10,6 +10,15 @@ namespace CarPooling.Controllers
 {
     public class ViaggiController : Controller
     {
+        public ActionResult Dettagli(int id)
+        {
+            Viaggio v = Viaggio.SelectById(id);
+            List<Prenotazione> prenotazioni = Prenotazione.SelectByIdViaggio(id);
+            //Dalle prenotazioni, recuperare nome e cognome dei passeggeri 
+           
+            return View(v);
+        }
+        
         //TODO Parametrizzare
         public ActionResult ViaggiDisponibili()
         {
