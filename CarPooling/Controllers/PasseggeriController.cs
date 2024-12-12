@@ -21,11 +21,9 @@ namespace CarPooling.Controllers
         {
             return View();
         }
-        public ActionResult HomePasseggero()
+        public ActionResult HomePasseggero(string email)
         {
-            //string emailPasseggero = User.Identity.Name; //da coniugare con login
-            string emailPasseggero = "marcopuccio@gmail.com";
-            return View(Passeggero.SelectById(emailPasseggero));
+            return View(Passeggero.SelectById(email));
         }
 
         public ActionResult PartialRicercaViaggi()
@@ -33,10 +31,6 @@ namespace CarPooling.Controllers
             return PartialView("_PartialRicercaViaggi");
         }
         
-        public ActionResult RegistrazionePasseggero()
-        {
-            return View();
-        }
 
         public ActionResult ViaggiPasseggero(string email)
         {
