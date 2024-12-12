@@ -1,0 +1,124 @@
+﻿@model CarPooling.Models.Passeggero
+
+@{
+    ViewBag.Title = "HomePasseggero";
+}
+
+<h2>Home Passeggero</h2>
+
+<div>
+    <h4>Dati del tuo account</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.EmailPasseggero)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmailPasseggero)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Cognome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cognome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CartaIdentita)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CartaIdentita)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Telefono)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Telefono)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Modifica dati (non implementato)", "Edit", new { /* id = Model.PrimaryKey */ }) |
+</p>
+
+
+<div>
+    @Html.Action("PartialRicercaViaggi")
+</div>
+
+
+
+<input type="button" id="MostraListaViaggi" value="Mostra viaggi prenotati" class="btn btn-success" style="margin-top:20px" />
+
+<h2>Lista Viaggi</h2>
+<ul id="listaViaggi"></ul>
+
+
+<input type="button" id="MostraPrenotazioniTotali" value="Mostra il numero di prenotazioni totali" class="btn btn-success" style="margin-top:20px" />
+
+<ul id="totPrenotazioni"></ul>
+
+@section scripts {
+    <script type="text/javascript">
+        $("#MostraListaViaggi").click(function () { //TODO formattare data e ora correttamente, sostituire i bool con sì o no
+            $('#listaViaggi').empty();
+            $.ajax({
+                url: '@Url.Action("ViaggiPasseggero", "Passeggeri", new {email=Model.EmailPasseggero})',
+                type: 'GET',
+                dataType: "json",
+                success: function (data) {
+                    if (data.length === 0) {
+                        $('#listaViaggi').append('<li>Nessun viaggio trovato.</li>');
+                        return;
+                    }
+                    $.each(data, function (i, viaggio) {
+                        var itemLi = `<li>
+                            Partenza: ${viaggio.CittaPartenza} |
+                            Destin.: ${viaggio.CittaArrivo} |
+                            Data e Ora Part.: ${viaggio.DataOraPartenza} |
+                            Data e Ora Arr.: ${viaggio.DataOraArrivo} |
+                            Animali: ${viaggio.Animali ? 'Sì' : 'No'} |
+                            Bagagli: ${viaggio.Bagagli ? 'Sì' : 'No'} |
+                            Soste: ${viaggio.SostePreviste} </li>`;
+                        $('#listaViaggi').append(itemLi);
+                    })
+                },
+                error: function () {
+                    alert('Errore');
+                }
+            })
+        })
+    </script>
+
+    <script type="text/javascript">
+    $("#MostraPrenotazioniTotali").click(function () {
+        $.ajax({
+            url: '@Url.Action("PrenotazioniTotali", "Passeggeri")',
+            type: 'GET',
+            success: function (data) {
+                $('#totPrenotazioni').empty();
+                var itemLi = `<li>Numero di prenotazioni effettuate globalmente: ${data}</li>`;
+                $('#totPrenotazioni').append(itemLi);
+            },
+            error: function () {
+                alert(`Errore`);
+            }
+        })
+    })
+    </script>
+}
