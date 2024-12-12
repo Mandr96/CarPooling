@@ -32,11 +32,6 @@ namespace CarPooling.Controllers
         {
             return PartialView("_PartialRicercaViaggi");
         }
-        
-        public ActionResult RegistrazionePasseggero()
-        {
-            return View();
-        }
 
         public ActionResult ViaggiPasseggero(string email)
         {
