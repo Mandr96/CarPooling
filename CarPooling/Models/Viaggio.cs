@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using System.Web.UI.WebControls;
 
 namespace CarPooling.Models
 {
@@ -82,6 +83,15 @@ namespace CarPooling.Models
             cmd.Parameters.AddWithValue("start", startDate);
             cmd.Parameters.AddWithValue("end", endDate);
             return Database.GetObjectList<Viaggio>(cmd);
+        }
+
+        public static void UpdateDisponibilita(int id)
+        {
+            string query = "UPDATE viaggi SET disponibile = 0 WHERE IdViaggio = @id";
+            SqlCommand cmd = new SqlCommand(query);
+            cmd.Parameters.AddWithValue("id", id);
+            Database.ExecuteNonQuery(cmd);   
+
         }
     }
 }

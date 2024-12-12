@@ -12,7 +12,7 @@
 <h2>I tuoi viaggi</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Nuovo", "Create", new {@email = ViewBag.Email})  
 </p>
 <div class="row" style="font-weight:bold;font-size:20px">
     <div class="col-md-3">
@@ -90,13 +90,13 @@
         <div class="row">
             <div class="col-md-1"></div>
             <div class="col-md-6">
-                Contatta l'autista: @item.FK_EmailAutista
+                Passeggeri:
             </div>
             <div class="col-md-3">
                 @using (Html.BeginForm("ChiudiPrenotazioni", "Viaggi"))
                 {
-                    @Html.Hidden("Disponibile", item.Disponibile);
-                    <button type="submit" class="btn btn-success">Prenota</button>
+                    @Html.Hidden("id", item.IdViaggio)            
+                    <button type="submit" class="btn btn-success">Chiudi</button>
                 }
             </div>
         </div>

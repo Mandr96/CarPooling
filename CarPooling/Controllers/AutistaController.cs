@@ -16,6 +16,13 @@ namespace CarPooling.Controllers
             ViewBag.Email = email;  
             return View(viaggi);
         }
+
+        public ActionResult ChiudiPrenotazione(int id)
+        {
+
+            Viaggio.UpdateDisponibilita(id);
+            return RedirectToAction("HomeAutista");
+        }
        
     }
 }
