@@ -90,17 +90,13 @@
                
                 <div class="col-md-6">
                     Passeggeri:
-                    <ul id="ListaPass"></ul>
+                    <ul id="ListaPass_@item.IdViaggio"></ul>
 
                 </div>
-
-
                 Gestisci prenotazione:
                 @if (item.Disponibile)
                 {
-                    int state = 1;
-
-
+                  
                     <div class="col-md-3">
                         @using (Html.BeginForm("AggiornaPrenotazione", "Autista", new {@state = 0}))
                         {
@@ -141,12 +137,9 @@
 
                 $(this).children('.itemDetails').slideToggle();
 
-                $('#ListaPass').empty()
-
-                /*if(toggleisdown)*/
-
                 var idViaggio = $(this).data('id');
-                console.log("data-id trovato:", idViaggio);
+                const ul = $(`#ListaPass_${idViaggio}`);
+                ul.empty();
                 
                 $.ajax({
                     url: '@Url.Action("GetViaggiatori", "Viaggi")',
@@ -159,7 +152,7 @@
                             var itemLi = "<li>" + item.Nome +
                                 " " + item.Cognome + "</li>";
 
-                            $('#ListaPass').append(itemLi);
+                            ul.append(itemLi);
                         })
                     },  
                     error: function () {
