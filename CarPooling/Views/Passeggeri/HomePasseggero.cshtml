@@ -69,7 +69,8 @@
 <ul id="listaViaggi"></ul>
 
 
-<input type="button" id="MostraPrenotazioniTotali" value="Mostra il numero di prenotazioni totali" class="btn btn-success" style="margin-top:20px" />
+<input type="button" id="MostraPrenotazioniTotali" value="Mostra prenotazioni totali" class="btn btn-success" 
+       style="margin-top:20px" />
 
 <ul id="totPrenotazioni"></ul>
 
@@ -90,8 +91,8 @@
                         var itemLi = `<li>
                             Partenza: ${viaggio.CittaPartenza} |
                             Destin.: ${viaggio.CittaArrivo} |
-                            Data e Ora Part.: ${viaggio.DataOraPartenza} |
-                            Data e Ora Arr.: ${viaggio.DataOraArrivo} |
+                            Data e Ora Part.: ${DateJs(viaggio.DataOraPartenza)} |
+                            Data e Ora Arr.: ${DateJs(viaggio.DataOraArrivo)} |
                             Animali: ${viaggio.Animali ? 'Sì' : 'No'} |
                             Bagagli: ${viaggio.Bagagli ? 'Sì' : 'No'} |
                             Soste: ${viaggio.SostePreviste} </li>`;
