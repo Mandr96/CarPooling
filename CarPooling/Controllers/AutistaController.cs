@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace CarPooling.Controllers
 {
+    [Authorize(Roles = "Autista")]
     public class AutistaController : Controller
     {
         public ActionResult HomeAutista(string email)
@@ -20,6 +21,7 @@ namespace CarPooling.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public ActionResult RegistrazioneAutista()
         {
             ViewBag.Registrazione = null;
@@ -27,6 +29,8 @@ namespace CarPooling.Controllers
         }
 
         [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         public ActionResult RegistrazioneAutista(Autista p)
 
         {
@@ -75,12 +79,12 @@ namespace CarPooling.Controllers
             
         }
 
-
-
-    public ActionResult AggiornaPrenotazione(int id, string autista, int state)
+        public ActionResult AggiornaPrenotazione(int id, string autista, int state)
         {
             Viaggio.AggiornaDisp(id, state);
             return RedirectToAction("HomeAutista", "Autista", new { email = autista });
         }
+
+
     }
 }

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -10,15 +12,36 @@ namespace CarPooling.Models
 {
     public class Autista : DatabaseObject
     {
+        [Required(ErrorMessage ="Campo obbligatorio")]
+        [DisplayName("Email")]
         public string EmailAutista {  get; set; }
+
+        [Required(ErrorMessage = "Campo obbligatorio")]
         public string Nome {  get; set; }
+
+        [Required(ErrorMessage = "Campo obbligatorio")]
         public string Cognome { get; set; }
+
+        [Required(ErrorMessage = "Campo obbligatorio")]
+        [DisplayName("Data di nascita")]
         public DateTime DataNascita { get; set; }
+
+        [Required(ErrorMessage = "Campo obbligatorio")]
+        [DisplayName("Num. Patente")]
         public int NumPatente { get; set; }
+
+        [Required(ErrorMessage = "Campo obbligatorio")]
+        [DisplayName("Scadenza Patente")]
         public DateTime ScadenzaPatente { get; set; }
+
+        [Required(ErrorMessage = "Campo obbligatorio")]
         public string Auto { get; set; }
+
+        [Required(ErrorMessage = "Campo obbligatorio")]
         public string Telefono { get; set; }
+
         public string PhotoFileName { get; set; }
+
         public HttpPostedFileBase File { get; set; }
         public string PathFile { get; set; }
 

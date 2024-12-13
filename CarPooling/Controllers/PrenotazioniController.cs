@@ -8,9 +8,11 @@ using System.Web.Security;
 
 namespace CarPooling.Controllers
 {
+    [Authorize(Roles="Passeggero")]
     public class PrenotazioniController : Controller
     {
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult CreaPrenotazione(Prenotazione p)
         {
             Prenotazione.InsertPrenotazione(p);

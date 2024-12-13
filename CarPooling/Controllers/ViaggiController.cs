@@ -11,7 +11,7 @@ namespace CarPooling.Controllers
 {
     public class ViaggiController : Controller
     {
-        
+        [Authorize(Roles ="Passeggero")]
         public ActionResult ViaggiDisponibili(Viaggio viaggio)
         {
             List<Viaggio> viaggiList;
@@ -26,13 +26,14 @@ namespace CarPooling.Controllers
             return View(viaggiList);
         }
 
+        [Authorize(Roles = "Autista")]
         public ActionResult CreaViaggio()
         {
             return View();
         }
-
         [HttpPost]
-        //[ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Autista")]
         public ActionResult CreaViaggio(Viaggio viaggio, TimeSpan timePartenza, TimeSpan timeArrivo)
         {
             if (ModelState.IsValid && timePartenza != null && timeArrivo != null)
@@ -41,11 +42,13 @@ namespace CarPooling.Controllers
                 viaggio.DataOraPartenza = viaggio.DataOraPartenza.Add(timePartenza);
                 viaggio.DataOraArrivo = viaggio.DataOraArrivo.Add(timeArrivo);
                 Viaggio.InsertViaggio(viaggio);
-                return RedirectToAction("HomeAutista", "Autista");
+                
+                return RedirectToAction("HomeAutista", "Autista", new {email= viaggio.FK_EmailAutista});
             }
             return View(viaggio);
         }
 
+        [Authorize(Roles = "Autista")]
         public ActionResult GetViaggiatori(int id)
         {
             List<Passeggero> passeggeri = Viaggio.GetPasseggeriByViaggio(id);

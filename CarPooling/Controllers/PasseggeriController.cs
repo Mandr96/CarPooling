@@ -52,7 +52,7 @@ namespace CarPooling.Controllers
         }
 
         [HttpPost]
-
+        [ValidateAntiForgeryToken]
         public ActionResult RegistrazionePasseggero(Passeggero p)
         {
             ModelState.Remove("Credenziali.Email");
@@ -93,7 +93,7 @@ namespace CarPooling.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ModificaPasseggero(Passeggero p)
+        public ActionResult ModificaPasseggero([Bind(Exclude = "Email")] Passeggero p)
         {
             if (ModelState.IsValid)
             {

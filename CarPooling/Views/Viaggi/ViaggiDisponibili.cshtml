@@ -95,6 +95,7 @@
                 <div class="col-md-3">
                     @using (Html.BeginForm("CreaPrenotazione", "Prenotazioni"))
                     {
+                        @Html.AntiForgeryToken()
                         @Html.Hidden("EmailPasseggero", User.Identity.Name);
                         @Html.Hidden("IdViaggio", item.IdViaggio);
                         @Html.Hidden("DataOra", DateTime.Now);

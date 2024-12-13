@@ -17,7 +17,8 @@ namespace CarPooling.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(Utente u)
+        [ValidateAntiForgeryToken]
+        public ActionResult Login([Bind(Exclude = "Ruolo, Username")] Utente u)
         {
             if (ModelState.IsValid)
             {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Data.SqlClient;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace CarPooling.Models
     public class Passeggero : DatabaseObject
     {
         [Required(ErrorMessage ="Campo obbligatorio")]
+        [DisplayName("Email")]
         public string EmailPasseggero { get; set; }
 
         [Required(ErrorMessage = "Campo obbligatorio")]
@@ -20,6 +22,7 @@ namespace CarPooling.Models
         public string Cognome { get; set; }
 
         [Required(ErrorMessage = "Campo obbligatorio")]
+        [DisplayName("Numero Carta d'Identità")]
         public string CartaIdentita { get; set; }
 
         [Required(ErrorMessage = "Campo obbligatorio")]
