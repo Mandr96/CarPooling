@@ -17,10 +17,8 @@ namespace CarPooling.Controllers
         {
             return View();
         }
-        public ActionResult RegistrazionePasseggero()
-        {
-            return View();
-        }
+        
+
         public ActionResult HomePasseggero()
         {
             //string emailPasseggero = User.Identity.Name; //da coniugare con login
@@ -33,10 +31,6 @@ namespace CarPooling.Controllers
             return PartialView("_PartialRicercaViaggi");
         }
         
-        public ActionResult RegistrazionePasseggero()
-        {
-            return View();
-        }
 
         public ActionResult ViaggiPasseggero(string email)
         {
@@ -47,5 +41,37 @@ namespace CarPooling.Controllers
         {
             return Json(Passeggero.CountPrenotazioniTotali(), JsonRequestBehavior.AllowGet);
         }
+
+        [HttpGet]
+
+        public ActionResult RegistrazionePasseggero()
+        {
+            return View();
+        }
+
+        [HttpPost]
+
+        public ActionResult RegistrazionePasseggero(Passeggero p)
+        {
+
+        object Passeggero = null;
+
+        Passeggero= SelectById(string p.EmailPasseggero);
+
+            if (Passeggero == null)
+            {
+
+                InsertPasseggero(p);
+
+            }
+            else
+            {
+                ViewBag.Registrazione = "Email già registrata!"
+
+            } 
+
+            return View();
+        }
+
     }
 }

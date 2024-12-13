@@ -20,7 +20,8 @@ namespace CarPooling.Models
         public string Tel { get; set; }
         public string PhotoFileName { get; set; }
         public HttpPostedFileBase File { get; set; }
-        
+        public string PathFile { get; set; }
+
         public void BuildFromReader(SqlDataReader reader)
         {
 
