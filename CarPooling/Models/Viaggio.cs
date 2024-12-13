@@ -19,7 +19,7 @@ namespace CarPooling.Models
         [DisplayName("Citta di destinazione")]
         public string CittaArrivo { get; set; }
         [Required(ErrorMessage = "Campo obbligatorio")]
-        [DisplayName("Data e ora di partenza")]
+        [DisplayName("Data di partenza")]
         public DateTime DataOraPartenza { get; set; }
         [Required(ErrorMessage = "Campo obbligatorio")]
         [DisplayName("Quota richiesta ai passeggeri")]

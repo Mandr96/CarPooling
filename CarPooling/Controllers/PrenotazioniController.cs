@@ -16,7 +16,7 @@ namespace CarPooling.Controllers
         public ActionResult CreaPrenotazione(Prenotazione p)
         {
             Prenotazione.InsertPrenotazione(p);
-            return Redirect(FormsAuthentication.DefaultUrl);
+            return RedirectToAction("HomePasseggero", "Passeggeri", new {email=p.EmailPasseggero});
         }
     }
 }

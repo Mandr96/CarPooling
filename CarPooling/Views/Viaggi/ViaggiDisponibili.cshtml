@@ -93,7 +93,7 @@
                     Contatta l'autista: @item.FK_EmailAutista
                 </div>
                 <div class="col-md-3">
-                    @using (Html.BeginForm("CreaPrenotazione", "Prenotazioni"))
+                    @using (Html.BeginForm("CreaPrenotazione", "Prenotazioni", FormMethod.Post))
                     {
                         @Html.AntiForgeryToken()
                         @Html.Hidden("EmailPasseggero", User.Identity.Name);
@@ -108,9 +108,7 @@
     <hr />
 }
 
-<div>
-    @Html.Action("PartialRicercaViaggi", "Passeggeri")
-</div>
+
 
 @section scripts{
     <script type="text/javascript">

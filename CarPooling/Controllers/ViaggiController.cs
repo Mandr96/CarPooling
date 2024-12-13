@@ -15,13 +15,13 @@ namespace CarPooling.Controllers
         public ActionResult ViaggiDisponibili(Viaggio viaggio)
         {
             List<Viaggio> viaggiList;
-            if (viaggio.DataOraPartenza != null)
+            if (viaggio.DataOraPartenza.ToString() != "01/01/0001 00:00:00")
             {
                 viaggiList = Viaggio.SelectByTratta(viaggio.DataOraPartenza, viaggio.CittaPartenza, viaggio.CittaArrivo);
             }
             else
             {
-                viaggiList = Viaggio.SelectByTratta(DateTime.Now, viaggio.CittaPartenza, viaggio.CittaArrivo);
+                viaggiList = Viaggio.SelectByTratta(viaggio.CittaPartenza, viaggio.CittaArrivo);
             }
             return View(viaggiList);
         }
