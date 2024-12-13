@@ -19,12 +19,11 @@ namespace CarPooling.Controllers
             return View();
         }
 
-        public ActionResult RegistrazionePasseggero()
-        {
-            return View();
-        }
+
+
 
         public ActionResult HomePasseggero(string email)
+
         {
             return View(Passeggero.SelectById(email));
         }
@@ -33,6 +32,7 @@ namespace CarPooling.Controllers
         {
             return PartialView("_PartialRicercaViaggi");
         }
+
 
         public ActionResult ViaggiPasseggero(string email)
         {
@@ -43,6 +43,51 @@ namespace CarPooling.Controllers
         {
             return Json(Passeggero.CountPrenotazioniTotali(), JsonRequestBehavior.AllowGet);
         }
+
+
+
+        public ActionResult RegistrazionePasseggero()
+        {
+
+
+            return View();
+        }
+
+        [HttpPost]
+
+        public ActionResult RegistrazionePasseggero(Passeggero p)
+        {
+            ModelState.Remove("Credenziali.Email");
+            p.Credenziali.Ruolo = "Passeggero";
+            
+
+            if (ModelState.IsValid)
+            {
+                Utente utente = Utente.SelectByEmail(p.EmailPasseggero);
+                if (utente.Username == null)
+                {
+                    
+                    Passeggero.InsertPasseggero(p);
+
+                    return RedirectToAction("Login", "Login");
+
+                }
+                else
+                {
+                    TempData["RegistrazioneError"] = "Email già presente nel sistema!";
+                    return View(p);
+
+                }
+            }
+            else
+            {
+                TempData["RegistrazioneError"] = "Dati non corretti/mancanti!";
+                return View(p);
+            }
+
+            
+        }
+
 
         public ActionResult ModificaPasseggero(string email)
         {
@@ -62,5 +107,6 @@ namespace CarPooling.Controllers
                 return View(p);
             }
         }
+
     }
 }

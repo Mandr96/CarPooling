@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
@@ -8,23 +7,14 @@ using System.Web.Helpers;
 
 namespace CarPooling.Models
 {
-    public class Passeggero : DatabaseObject
+    public class Passeggeri : DatabaseObject
     {
-        [Required(ErrorMessage ="Campo obbligatorio")]
         public string EmailPasseggero { get; set; }
-
-        [Required(ErrorMessage = "Campo obbligatorio")]
         public string Nome { get; set; }
-
-        [Required(ErrorMessage = "Campo obbligatorio")]
         public string Cognome { get; set; }
-
-        [Required(ErrorMessage = "Campo obbligatorio")]
         public string CartaIdentita { get; set; }
-
-        [Required(ErrorMessage = "Campo obbligatorio")]
         public string Telefono { get; set; }
-
+       
 
 
         public void BuildFromReader(SqlDataReader reader)
@@ -53,14 +43,11 @@ namespace CarPooling.Models
         {
             string query = "INSERT INTO Passeggero VALUES (@EmailPasseggero, @Nome, @Cognome, @CartaIdentita, @Telefono);";
             SqlCommand cmd = new SqlCommand(query);
-
-
             cmd.Parameters.AddWithValue("EmailPasseggero", p.EmailPasseggero);
             cmd.Parameters.AddWithValue("Nome", p.Nome);
             cmd.Parameters.AddWithValue("Cognome", p.Cognome);
             cmd.Parameters.AddWithValue("CartaIdentita", p.Cognome);
             cmd.Parameters.AddWithValue("Telefono", p.Cognome);
-
             Database.ExecuteNonQuery(cmd);
         }
 
@@ -78,7 +65,7 @@ namespace CarPooling.Models
             SqlCommand cmd = new SqlCommand("SELECT COUNT(IdPrenotazione) AS Conto FROM Prenotazione", Database.Connection);
             try
             {
-                Database.Connection.Open();
+                Database.Connection.Open(); //non funziona
                 SqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
@@ -90,17 +77,6 @@ namespace CarPooling.Models
             return conto;
         }
 
-
-        public static void EditPasseggero(Passeggero p)
-        {
-            SqlCommand cmd = new SqlCommand("UPDATE Passeggero SET Nome=@nom, Cognome=@cog, CartaIdentita=@car, Telefono=@tel WHERE email=@ema");
-            cmd.Parameters.AddWithValue("nom", p.Nome);
-            cmd.Parameters.AddWithValue("cog", p.Cognome);
-            cmd.Parameters.AddWithValue("car", p.CartaIdentita);
-            cmd.Parameters.AddWithValue("tel", p.Telefono);
-            cmd.Parameters.AddWithValue("ema", p.EmailPasseggero);
-            Database.ExecuteNonQuery(cmd);
-        }
-
+       
     }
 }

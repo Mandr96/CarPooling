@@ -12,6 +12,7 @@ namespace CarPooling.Models
     public class Database
     {
         public static SqlConnection Connection = new SqlConnection(ConfigurationManager.ConnectionStrings["DBconnection"].ConnectionString);
+
         //Metodo da usare se la query restituisce un solo record
         public static Type GetObject<Type>(SqlCommand cmd) where Type : DatabaseObject, new()
         {
@@ -43,6 +44,7 @@ namespace CarPooling.Models
             }
             return obj;
         }
+
         //Metodo da usare se la query restituisce più record
         public static List<Type> GetObjectList<Type>(SqlCommand cmd) where Type : DatabaseObject, new()
         {

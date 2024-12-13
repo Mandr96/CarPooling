@@ -36,5 +36,12 @@ namespace CarPooling.Models
             
             return Database.GetObject<Utente>(cmd);
         }
+
+        public static Utente SelectByEmail(string id)
+        {
+            SqlCommand cmd = new SqlCommand("SELECT * FROM Utente WHERE Email = @id");
+            cmd.Parameters.AddWithValue("id", id);
+            return Database.GetObject<Utente>(cmd);
+        }
     }
 }
