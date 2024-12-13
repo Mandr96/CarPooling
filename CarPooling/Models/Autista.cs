@@ -15,12 +15,14 @@ namespace CarPooling.Models
         public string Cognome { get; set; }
         public DateTime DataNascita { get; set; }
         public int NumPatente { get; set; }
-        public DateTime scadenzaPatente { get; set; }
+        public DateTime ScadenzaPatente { get; set; }
         public string Auto { get; set; }
-        public string Tel { get; set; }
+        public string Telefono { get; set; }
         public string PhotoFileName { get; set; }
         public HttpPostedFileBase File { get; set; }
         public string PathFile { get; set; }
+
+        public Utente Credenziali { get; set; }
 
         public void BuildFromReader(SqlDataReader reader)
         {
@@ -31,10 +33,11 @@ namespace CarPooling.Models
             Cognome = reader["Cognome"].ToString();
             DataNascita = (DateTime)reader["DataNascita"];
             NumPatente = int.Parse(reader["NumPatente"].ToString());
-            scadenzaPatente = (DateTime)reader["ScadenzaPatente"];
+            ScadenzaPatente = (DateTime)reader["ScadenzaPatente"];
             Auto = reader["Auto"].ToString();
-            Tel = reader["Telefono"].ToString();
+            Telefono = reader["Telefono"].ToString();
             PhotoFileName = reader["PhotoFileName"].ToString();
+            Credenziali.Email = reader["emailAutista"].ToString();
 
         }
 
@@ -61,9 +64,9 @@ namespace CarPooling.Models
             cmd.Parameters.AddWithValue("Cognome", autista.Cognome);
             cmd.Parameters.AddWithValue("DataNascita", autista.DataNascita);
             cmd.Parameters.AddWithValue("NumPatente", autista.NumPatente);
-            cmd.Parameters.AddWithValue("ScadenzaPatente", autista.scadenzaPatente);
+            cmd.Parameters.AddWithValue("ScadenzaPatente", autista.ScadenzaPatente);
             cmd.Parameters.AddWithValue("Auto", autista.Auto);
-            cmd.Parameters.AddWithValue("Telefono", autista.Tel);
+            cmd.Parameters.AddWithValue("Telefono", autista.Telefono);
             cmd.Parameters.AddWithValue("PhotoFileName", autista.PhotoFileName);
 
             Database.ExecuteNonQuery(cmd); 

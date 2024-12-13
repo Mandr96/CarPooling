@@ -86,6 +86,23 @@
         @Html.ValidationMessageFor(model => model.File, "", new { @class = "text-danger" })
     </div>
 
+    <div class="form-group">
+        @Html.LabelFor(model => model.Credenziali.Username, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Credenziali.Username, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Credenziali.Username, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Credenziali.Password, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Credenziali.Password, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Credenziali.Password, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
@@ -100,8 +117,8 @@
 </div>
 
 
-@if(ViewBag.Registrazione!=null){
+@if(TempData["RegistrazioneError"] !=null){
 
-@ViewBag.Registrazione
+@TempData["RegistrazioneError"];
 }
 

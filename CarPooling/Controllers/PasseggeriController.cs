@@ -46,6 +46,8 @@ namespace CarPooling.Controllers
 
         public ActionResult RegistrazionePasseggero()
         {
+
+
             return View();
         }
 
@@ -53,24 +55,35 @@ namespace CarPooling.Controllers
 
         public ActionResult RegistrazionePasseggero(Passeggero p)
         {
+            ModelState.Remove("Credenziali.Email");
+            p.Credenziali.Ruolo = "Passeggero";
+            
 
-        object Passeggero = null;
-
-        Passeggero= SelectById(string p.EmailPasseggero);
-
-            if (Passeggero == null)
+            if (ModelState.IsValid)
             {
+                Utente utente = Utente.SelectByEmail(p.EmailPasseggero);
+                if (utente.Username == null)
+                {
+                    
+                    Passeggero.InsertPasseggero(p);
 
-                InsertPasseggero(p);
+                    return RedirectToAction("Login", "Login");
 
+                }
+                else
+                {
+                    TempData["RegistrazioneError"] = "Email già presente nel sistema!";
+                    return View(p);
+
+                }
             }
             else
             {
-                ViewBag.Registrazione = "Email già registrata!"
+                TempData["RegistrazioneError"] = "Dati non corretti/mancanti!";
+                return View(p);
+            }
 
-            } 
-
-            return View();
+            
         }
 
     }
