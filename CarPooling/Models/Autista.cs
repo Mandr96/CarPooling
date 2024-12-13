@@ -57,19 +57,28 @@ namespace CarPooling.Models
 
         public static void InsertAutista(Autista autista)
         {
-            string query = "INSERT INTO Autista VALUES (@EmailAutista, @Nome, @Cognome);";
+            string query = "InsertAutista";
             SqlCommand cmd = new SqlCommand(query);
-            cmd.Parameters.AddWithValue("EmailAutista", autista.EmailAutista);
-            cmd.Parameters.AddWithValue("Nome", autista.Nome);
-            cmd.Parameters.AddWithValue("Cognome", autista.Cognome);
-            cmd.Parameters.AddWithValue("DataNascita", autista.DataNascita);
-            cmd.Parameters.AddWithValue("NumPatente", autista.NumPatente);
-            cmd.Parameters.AddWithValue("ScadenzaPatente", autista.ScadenzaPatente);
-            cmd.Parameters.AddWithValue("Auto", autista.Auto);
-            cmd.Parameters.AddWithValue("Telefono", autista.Telefono);
-            cmd.Parameters.AddWithValue("PhotoFileName", autista.PhotoFileName);
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
-            Database.ExecuteNonQuery(cmd); 
+            cmd.Parameters.AddWithValue("emailA", autista.EmailAutista);
+            cmd.Parameters.AddWithValue("nomeA", autista.Nome);
+            cmd.Parameters.AddWithValue("cognomeA", autista.Cognome);
+            cmd.Parameters.AddWithValue("dataN", autista.DataNascita);
+            cmd.Parameters.AddWithValue("numP", autista.NumPatente);
+            cmd.Parameters.AddWithValue("scadP", autista.ScadenzaPatente);
+            cmd.Parameters.AddWithValue("auto", autista.Auto);
+            cmd.Parameters.AddWithValue("tel", autista.Telefono);
+            cmd.Parameters.AddWithValue("photo", autista.PhotoFileName);
+            cmd.Parameters.AddWithValue("user", autista.Credenziali.Username);
+            cmd.Parameters.AddWithValue("pwd", autista.Credenziali.Password);
+            cmd.Parameters.AddWithValue("role", autista.Credenziali.Ruolo);
+
+            var ResultQuery = new SqlParameter("ResultQuery", System.Data.SqlDbType.NVarChar, 200);
+            ResultQuery.Direction = System.Data.ParameterDirection.Output;
+            cmd.Parameters.Add(ResultQuery);
+
+            Database.ExecuteNonQuery(cmd);
         }   
 
     }

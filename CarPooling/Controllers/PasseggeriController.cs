@@ -48,8 +48,6 @@ namespace CarPooling.Controllers
 
         public ActionResult RegistrazionePasseggero()
         {
-
-
             return View();
         }
 

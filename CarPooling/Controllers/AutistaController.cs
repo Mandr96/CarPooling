@@ -30,14 +30,16 @@ namespace CarPooling.Controllers
         public ActionResult RegistrazioneAutista(Autista p)
 
         {
-
+            p.Credenziali.Ruolo = "Autista";
+            ModelState.Remove("Credenziali.Email");
             if (ModelState.IsValid)
             {
-                Autista autista = null;
+                Autista autista = new Autista();
                 autista = Autista.SelectById(p.EmailAutista);
 
                 if (autista.EmailAutista == null)
                 {
+
                     if (p.File != null && p.File.ContentLength > 0)
                     {
 
@@ -49,36 +51,33 @@ namespace CarPooling.Controllers
                         p.File.SaveAs(PathFile);
                         p.PhotoFileName = fileNameUnique;
                         p.PathFile = PathFile;
-
-
                     }
-
+                    
                     Autista.InsertAutista(p);
+                    return RedirectToAction("Login", "Login");
 
                 }
                 else
                 {
                     TempData["RegistrazioneError"] = "Email già presente nel sistema!";
+                    return View(p);
 
                 }
 
-                }else{ 
-                
+            }
+            else
+            {
+
                 TempData["RegistrazioneError"] = "Dati non corretti!";
+                return View(p);
             }
 
-            return View();
+            
         }
 
 
 
-            ViewBag.Email = email;  
-
-           
-            return View(viaggi);
-        }
-
-        public ActionResult AggiornaPrenotazione(int id, string autista, int state)
+    public ActionResult AggiornaPrenotazione(int id, string autista, int state)
         {
             Viaggio.AggiornaDisp(id, state);
             return RedirectToAction("HomeAutista", "Autista", new { email = autista });

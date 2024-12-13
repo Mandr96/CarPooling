@@ -25,6 +25,8 @@ namespace CarPooling.Models
         [Required(ErrorMessage = "Campo obbligatorio")]
         public string Telefono { get; set; }
 
+        public Utente Credenziali { get; set; }
+
 
 
         public void BuildFromReader(SqlDataReader reader)
@@ -51,15 +53,23 @@ namespace CarPooling.Models
 
         public static void InsertPasseggero(Passeggero p)
         {
-            string query = "INSERT INTO Passeggero VALUES (@EmailPasseggero, @Nome, @Cognome, @CartaIdentita, @Telefono);";
+            string query = "InsertPasseggero";
             SqlCommand cmd = new SqlCommand(query);
+            cmd.CommandType = System.Data.CommandType.StoredProcedure;
 
 
-            cmd.Parameters.AddWithValue("EmailPasseggero", p.EmailPasseggero);
-            cmd.Parameters.AddWithValue("Nome", p.Nome);
-            cmd.Parameters.AddWithValue("Cognome", p.Cognome);
-            cmd.Parameters.AddWithValue("CartaIdentita", p.Cognome);
-            cmd.Parameters.AddWithValue("Telefono", p.Cognome);
+            cmd.Parameters.AddWithValue("emailP", p.EmailPasseggero);
+            cmd.Parameters.AddWithValue("nomeP", p.Nome);
+            cmd.Parameters.AddWithValue("cognomeP", p.Cognome);
+            cmd.Parameters.AddWithValue("cartaId", p.CartaIdentita);
+            cmd.Parameters.AddWithValue("tel", p.Telefono);
+            cmd.Parameters.AddWithValue("user", p.Credenziali.Username);
+            cmd.Parameters.AddWithValue("pwd", p.Credenziali.Password);
+            cmd.Parameters.AddWithValue("role", p.Credenziali.Ruolo);
+
+            var ResultQuery = new SqlParameter("ResultQuery", System.Data.SqlDbType.NVarChar, 200);
+            ResultQuery.Direction = System.Data.ParameterDirection.Output;
+            cmd.Parameters.Add(ResultQuery);
 
             Database.ExecuteNonQuery(cmd);
         }
