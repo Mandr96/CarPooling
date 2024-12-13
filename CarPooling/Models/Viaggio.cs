@@ -108,11 +108,12 @@ namespace CarPooling.Models
             return Database.GetObjectList<Viaggio>(cmd);
         }
 
-        public static void UpdateDisponibilita(int id)
+        public static void AggiornaDisp(int id, int state)
         {
-            string query = "UPDATE viaggio SET Disponibile = 0 WHERE IdViaggio = @id";
+            string query = "UPDATE viaggio SET Disponibile = @state WHERE IdViaggio = @id";
             SqlCommand cmd = new SqlCommand(query);
             cmd.Parameters.AddWithValue("id", id);
+            cmd.Parameters.AddWithValue("state", state);
             Database.ExecuteNonQuery(cmd);   
 
         }

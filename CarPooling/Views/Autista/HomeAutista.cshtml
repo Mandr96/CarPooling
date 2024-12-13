@@ -30,7 +30,7 @@
 <hr />
 @foreach (CarPooling.Models.Viaggio item in Model)
 {
-    <div class="itemViaggio" data-id="@item.IdViaggio" sstyle="font-size:16px;padding:4px">
+    <div class="itemViaggio" data-id="@item.IdViaggio" style="font-size:16px;padding:4px">
         <div class="row">
             <div class="col-md-3">
                 @item.DataOraPartenza.ToShortDateString()
@@ -87,24 +87,40 @@
             </div>
             <div class="row">
                 <div class="col-md-1"></div>
+               
                 <div class="col-md-6">
                     Passeggeri:
-                    <ul id="ListaPass">
-                    </ul>
+                    <ul id="ListaPass"></ul>
 
                 </div>
+
+
+                Gestisci prenotazione:
                 @if (item.Disponibile)
                 {
+                    int state = 1;
+
+
                     <div class="col-md-3">
-                        @using (Html.BeginForm("ChiudiPrenotazione", "Autista"))
+                        @using (Html.BeginForm("AggiornaPrenotazione", "Autista", new {@state = 0}))
                         {
                             @Html.Hidden("id", item.IdViaggio)
                             @Html.Hidden("autista", item.FK_EmailAutista)
-                            <button type="submit" class="btn btn-success">Chiudi</button>
+                            <button type="submit" class="btn btn-danger">Chiudi</button>
                         }
                     </div>
                 }
-
+                else
+                {
+                    <div class="col-md-3">
+                        @using (Html.BeginForm("AggiornaPrenotazione", "Autista", new {@state = 1}))
+                        {
+                            @Html.Hidden("id", item.IdViaggio)
+                            @Html.Hidden("autista", item.FK_EmailAutista)
+                            <button type="submit" class="btn btn-success">Apri</button>
+                        }
+                    </div>
+                }                  
             </div>
         </div>
     </div>
@@ -120,12 +136,18 @@
             }, function () {
                 $(this).css("background-color", "white");
             });
+
             $('.itemViaggio').click(function () {
-                $(this).children('#ListaPass').empty()
+
                 $(this).children('.itemDetails').slideToggle();
+
+                $('#ListaPass').empty()
+
                 /*if(toggleisdown)*/
+
                 var idViaggio = $(this).data('id');
                 console.log("data-id trovato:", idViaggio);
+                
                 $.ajax({
                     url: '@Url.Action("GetViaggiatori", "Viaggi")',
                     type: 'GET',
@@ -137,7 +159,7 @@
                             var itemLi = "<li>" + item.Nome +
                                 " " + item.Cognome + "</li>";
 
-                            $(this).children('#ListaPass').append(itemLi);
+                            $('#ListaPass').append(itemLi);
                         })
                     },  
                     error: function () {

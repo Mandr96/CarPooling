@@ -19,12 +19,10 @@ namespace CarPooling.Controllers
             return View(viaggi);
         }
 
-        public ActionResult ChiudiPrenotazione(int id, string autista)
+        public ActionResult AggiornaPrenotazione(int id, string autista, int state)
         {
-
-            Viaggio.UpdateDisponibilita(id);
+            Viaggio.AggiornaDisp(id, state);
             return RedirectToAction("HomeAutista", "Autista", new { email = autista });
         }
-       
     }
 }
