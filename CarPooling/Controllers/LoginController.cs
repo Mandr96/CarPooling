@@ -22,9 +22,9 @@ namespace CarPooling.Controllers
             if (ModelState.IsValid)
             {
                 Utente utente = Utente.SelectUtenteById(u.Email, u.Password);
-                if(utente.Email == u.Email) {
+                if (utente.Email == u.Email) {
                     FormsAuthentication.SetAuthCookie(utente.Email, false);
-                    if (User.IsInRole("Passeggero"))
+                    if (utente.Ruolo == "Passeggero")
                     {
                         return RedirectToAction("HomePasseggero", "Passeggeri", new { email = u.Email });
                     }
@@ -37,7 +37,7 @@ namespace CarPooling.Controllers
                 else
                 {
                     TempData["LoginError"] = "Utente non trovato";
-                }                               
+                }
             } else
             {
                 TempData["LoginError"] = "Inserisci email e password";
@@ -45,5 +45,14 @@ namespace CarPooling.Controllers
 
             return View(u);
         }
+
+    
+
+    public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Login");
+        }
+
     }
 }

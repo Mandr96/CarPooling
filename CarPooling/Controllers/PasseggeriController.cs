@@ -10,6 +10,7 @@ using System.Web.Security;
 
 namespace CarPooling.Controllers
 {
+    [Authorize(Roles = "Passeggero")]
     public class PasseggeriController : Controller
     {
         // GET: Passeggeri
@@ -17,20 +18,21 @@ namespace CarPooling.Controllers
         {
             return View();
         }
-        
 
-        public ActionResult HomePasseggero()
+
+
+
+        public ActionResult HomePasseggero(string email)
+
         {
-            //string emailPasseggero = User.Identity.Name; //da coniugare con login
-            string emailPasseggero = "marcopuccio@gmail.com";
-            return View(Passeggero.SelectById(emailPasseggero));
+            return View(Passeggero.SelectById(email));
         }
 
         public ActionResult PartialRicercaViaggi()
         {
             return PartialView("_PartialRicercaViaggi");
         }
-        
+
 
         public ActionResult ViaggiPasseggero(string email)
         {
@@ -42,7 +44,7 @@ namespace CarPooling.Controllers
             return Json(Passeggero.CountPrenotazioniTotali(), JsonRequestBehavior.AllowGet);
         }
 
-        [HttpGet]
+
 
         public ActionResult RegistrazionePasseggero()
         {
@@ -84,6 +86,26 @@ namespace CarPooling.Controllers
             }
 
             
+        }
+
+
+        public ActionResult ModificaPasseggero(string email)
+        {
+            return View(Passeggero.SelectById(email));
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ModificaPasseggero(Passeggero p)
+        {
+            if (ModelState.IsValid)
+            {
+                Passeggero.EditPasseggero(p);
+                return RedirectToAction("HomePasseggero", new { email = p.EmailPasseggero });
+            }
+            else
+            {
+                return View(p);
+            }
         }
 
     }

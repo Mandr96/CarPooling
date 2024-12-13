@@ -1,4 +1,5 @@
 ﻿using CarPooling.Models;
+using Microsoft.Ajax.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,20 +11,45 @@ namespace CarPooling.Controllers
 {
     public class ViaggiController : Controller
     {
-        public ActionResult Dettagli(int id)
-        {
-            Viaggio v = Viaggio.SelectById(id);
-            List<Prenotazione> prenotazioni = Prenotazione.SelectByIdViaggio(id);
-            //Dalle prenotazioni, recuperare nome e cognome dei passeggeri 
-           
-            return View(v);
-        }
         
-        //TODO Parametrizzare
-        public ActionResult ViaggiDisponibili()
+        public ActionResult ViaggiDisponibili(Viaggio viaggio)
         {
-            var viaggiList = Viaggio.SelectByTratta("Torino", "Milano");
+            List<Viaggio> viaggiList;
+            if (viaggio.DataOraPartenza != null)
+            {
+                viaggiList = Viaggio.SelectByTratta(viaggio.DataOraPartenza, viaggio.CittaPartenza, viaggio.CittaArrivo);
+            }
+            else
+            {
+                viaggiList = Viaggio.SelectByTratta(DateTime.Now, viaggio.CittaPartenza, viaggio.CittaArrivo);
+            }
             return View(viaggiList);
+        }
+
+        public ActionResult CreaViaggio()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        //[ValidateAntiForgeryToken]
+        public ActionResult CreaViaggio(Viaggio viaggio, TimeSpan timePartenza, TimeSpan timeArrivo)
+        {
+            if (ModelState.IsValid && timePartenza != null && timeArrivo != null)
+            {
+                viaggio.Disponibile = true;
+                viaggio.DataOraPartenza = viaggio.DataOraPartenza.Add(timePartenza);
+                viaggio.DataOraArrivo = viaggio.DataOraArrivo.Add(timeArrivo);
+                Viaggio.InsertViaggio(viaggio);
+                return RedirectToAction("HomeAutista", "Autista");
+            }
+            return View(viaggio);
+        }
+
+        public ActionResult GetViaggiatori(int id)
+        {
+            List<Passeggero> passeggeri = Viaggio.GetPasseggeriByViaggio(id);
+            return Json(passeggeri, JsonRequestBehavior.AllowGet);
         }
     }
 }

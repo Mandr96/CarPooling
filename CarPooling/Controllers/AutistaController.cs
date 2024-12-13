@@ -14,6 +14,7 @@ namespace CarPooling.Controllers
         public ActionResult HomeAutista(string email)
         {
             List<Viaggio> viaggi = Viaggio.SelectByAutista(email);
+
             ViewBag.Email = email;
             return View(viaggi);
         }
@@ -70,5 +71,17 @@ namespace CarPooling.Controllers
         }
 
 
+
+            ViewBag.Email = email;  
+
+           
+            return View(viaggi);
+        }
+
+        public ActionResult AggiornaPrenotazione(int id, string autista, int state)
+        {
+            Viaggio.AggiornaDisp(id, state);
+            return RedirectToAction("HomeAutista", "Autista", new { email = autista });
+        }
     }
 }

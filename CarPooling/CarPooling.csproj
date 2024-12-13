@@ -155,6 +155,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
+    <Content Include="Scripts\DateConvertFromServer.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
     <Content Include="Scripts\jquery-3.7.0.min.js" />
     <Content Include="Scripts\jquery-3.7.0.slim.js" />
@@ -187,7 +188,9 @@
     <Content Include="Views\Passeggeri\HomePasseggero.cshtml" />
     <Content Include="Views\Passeggeri\RegistrazionePasseggero.cshtml" />
     <Content Include="Views\Viaggi\ViaggiDisponibili.cshtml" />
-    <Content Include="Views\Viaggi\Dettagli.cshtml" />
+    <Content Include="Views\Autista\HomeAutista.cshtml" />
+    <Content Include="Views\Viaggi\CreaViaggio.cshtml" />
+    <Content Include="Views\Passeggeri\ModificaPasseggero.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
